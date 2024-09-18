@@ -1,0 +1,32 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import store from './redux/store';
+import { Provider } from 'react-redux';
+import './App.css'
+import NotFound from './components/errors/NotFoundPage'
+import { Companies } from './components/Companies';
+import { Coupons } from './components/Coupons';
+import { Customers } from './components/Customers';
+import Home from './components/Home';
+
+function App() {
+
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route index path='/Coupons' element={<Coupons />} />
+            <Route path="/Customers" element={<Customers />} />
+            <Route path="/Companies" element={<Companies />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  );
+}
+
+
+export default App;
