@@ -5,7 +5,7 @@ import './Login.css';
 import { updateLocalStorage } from '../services/updateLocalStorage';
 import { useDispatch } from 'react-redux';
 import { setUserType, initUserType } from '../redux/userTypeSlice';
-import { loginApi } from '../services/api/loginApi';
+import { loginApi } from '../services/server-api/loginApi';
 
 
 const emailRegexValidate = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -19,7 +19,7 @@ function Login() {
     const validatePassword = (value) => {
         const newErrors = errors;
 
-        if (!value || value == " ")
+        if (!value || value === "")
             newErrors.password = 'Password is required';
         else if (value.length < 6)
             newErrors.password = 'Password must be at least 6 characters';
@@ -32,7 +32,7 @@ function Login() {
     const validateEmail = (value) => {
         const newErrors = errors;
 
-        if (!value || value == " ")
+        if (!value || value === "")
             newErrors.email = 'Email is required';
 
         else if (!emailRegexValidate.test(value))
@@ -49,10 +49,13 @@ function Login() {
         try {
             const userToken = await loginApi(email, password);
             updateLocalStorage('tokenEmail', userToken.email);
+            updateLocalStorage('token', {userToken});
+
             dispatch(setUserType('Admin'));
         } catch (error) {
             console.warn('Login failed. Please try again.');
             updateLocalStorage('tokenEmail');
+            updateLocalStorage('token');
             dispatch(initUserType());
         }
     };
