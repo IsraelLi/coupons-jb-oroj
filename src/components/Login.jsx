@@ -6,6 +6,7 @@ import { updateLocalStorage } from '../services/updateLocalStorage';
 import { useDispatch } from 'react-redux';
 import { setUserType, initUserType } from '../redux/userTypeSlice';
 import { loginApi } from '../services/server-api/loginApi';
+import { toast } from 'react-toastify';
 
 
 const emailRegexValidate = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -52,8 +53,10 @@ function Login() {
             updateLocalStorage('token', {userToken});
 
             dispatch(setUserType('Admin'));
+            toast.success("The login was successful!");
+
         } catch (error) {
-            console.warn('Login failed. Please try again.');
+            toast.failed("Login failed. Please try again");
             updateLocalStorage('tokenEmail');
             updateLocalStorage('token');
             dispatch(initUserType());

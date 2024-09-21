@@ -8,6 +8,9 @@ import { Companies } from './components/Companies';
 import { Coupons } from './components/Coupons';
 import { Customers } from './components/Customers';
 import Home from './components/Home';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
 
@@ -24,6 +27,10 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+
+      <ToastContainer   position="bottom-left"
+      />
+
     </Provider>
   );
 }
