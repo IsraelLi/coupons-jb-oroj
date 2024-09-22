@@ -9,8 +9,8 @@ export const Customers = () => {
 
     return (
         <div className="coupons-container">
-            {customers.map(c => {
-                return <Customer customer={c} />
+            {customers.map((c, i) => {
+                return <Customer key={i} customer={c} />
             })}
             Customers displaing and actions.
             The actions supposed to change according to the user type.

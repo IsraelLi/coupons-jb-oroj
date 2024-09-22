@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navigation from './Navigation';
-import Profile from './Profile';
-import Login from './Login';
+import Profile from './login/Profile'
+import Login from './login/Login';
 import { Outlet } from 'react-router-dom';
 
 

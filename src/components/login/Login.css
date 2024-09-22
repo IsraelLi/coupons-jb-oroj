@@ -4,7 +4,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-image: url('../assets/images/coupons.png');
+  background-image: url('../../assets/images/coupons.png');
 
 }
 
@@ -28,4 +28,5 @@
 
 .login-button {
   width: 100%;
+  margin-top: 20px;
 }

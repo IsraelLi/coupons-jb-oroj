@@ -9,8 +9,8 @@ export const Coupons = () => {
 
     return (
         <div className="coupons-container">
-            {coupons.map(c => {
-                return <Coupon coupon={c} />
+            {coupons.map((c, i) => {
+                return <Coupon key={i} coupon={c} />
             })}
             Coupons displaing and actions.
             The actions spposed to change according to the user type.

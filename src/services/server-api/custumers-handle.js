@@ -1,7 +1,7 @@
 import axios from 'axios';
-import BASE_URL from './baseAPI';
 
-const URL = BASE_URL + '';
+
+const URL = '/customers';
 
 /**
  * Enable for admin authorization only 
@@ -20,7 +20,7 @@ export const getCustomersByCouponId = async (couponId) => {
     const val = localStorage.getItem('token')
     
     try {
-        const response = await axios.get(`${URL}/by-coupon${couponId}`, { val });
+        const response = await axios.get(`${URL}/by${couponId}`, { val });
         return response.data;
     } catch (error) {
         throw error;

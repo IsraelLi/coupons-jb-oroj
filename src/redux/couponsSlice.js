@@ -11,8 +11,8 @@ const couponsSlice = createSlice({
         companyId: '0',
         title: "BlackFriday",
         description: 'some desc.....',
-        startDate: new Date("2024-09-16T10:30:00Z"),
-        endDate: new Date("2024-09-17T10:30:00Z"),
+        startDate: new Date("2024-09-16T10:30:00Z").toISOString(),
+        endDate: new Date("2024-09-17T10:30:00Z").toISOString(),
         amount: 10,
         price: 99
       },
@@ -21,8 +21,8 @@ const couponsSlice = createSlice({
         companyId: '0',
         title: "RedFriday",
         description: 'some desc.....',
-        startDate: new Date("2024-10-16T10:30:00Z"),
-        endDate: new Date("2024-10-17T10:30:00Z"),
+        startDate: new Date("2024-10-16T10:30:00Z").toISOString(),
+        endDate: new Date("2024-10-17T10:30:00Z").toISOString(),
         amount: 10,
         price: 10
       },
@@ -31,8 +31,8 @@ const couponsSlice = createSlice({
         companyId: '0',
         title: "BlackSunday",
         description: 'some desc.....',
-        startDate: new Date("2024-09-10T10:00:00Z"),
-        endDate: new Date("2024-09-28T10:00:00Z"),
+        startDate: new Date("2024-09-10T10:00:00Z").toISOString(),
+        endDate: new Date("2024-09-28T10:00:00Z").toISOString(),
         amount: 10,
         price: 50
       },

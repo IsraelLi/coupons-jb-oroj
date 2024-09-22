@@ -10,7 +10,7 @@ const store = configureStore({
     coupons: couponsReducer,
     customers: customersReducer,
     companies: companiesReducer,
-    userType: userTypeReducer
+    user: userTypeReducer
   },
 });
 

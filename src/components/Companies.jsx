@@ -9,8 +9,8 @@ export const Companies = () => {
 
     return (
         <div className="coupons-container">
-            {companies.map(c => {
-                return <Company company={c} />
+            {companies.map((c, i) => {
+                return <Company key={i} company={c} />
             })}
             Companies displaing and actions - for admin only
 

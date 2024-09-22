@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Button } from 'react-bootstrap';
 import './Profile.css';
-import { updateLocalStorage } from '../services/updateLocalStorage';
+import { updateLocalStorage } from '../../services/updateLocalStorage';
 import { useSelector } from "react-redux";
 
 
@@ -10,7 +10,7 @@ const userNamePlaceHolder = 'please login:';
 function Profile() {
     const [userName, setUserName] = useState(userNamePlaceHolder);
     const [tokenEmail, setTokenEmail] = useState()
-    const userType = useSelector(state => state.userType.userType);
+    const userType = useSelector(state => state.user.user);
 
     useEffect(() => {
         setTokenEmail(localStorage.getItem('tokenEmail'))
@@ -35,6 +35,7 @@ function Profile() {
 
     const handleLogout = () => {
         updateLocalStorage('tokenEmail');
+        updateLocalStorage('token');
     }
 
     return (

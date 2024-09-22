@@ -1,12 +1,13 @@
 
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import './Login.css';
-import { updateLocalStorage } from '../services/updateLocalStorage';
+import { updateLocalStorage } from '../../services/updateLocalStorage';
 import { useDispatch } from 'react-redux';
-import { setUserType, initUserType } from '../redux/userTypeSlice';
-import { loginApi } from '../services/server-api/loginApi';
+import { setUserType, initUserType } from '../../redux/userTypeSlice';
 import { toast } from 'react-toastify';
+import { postLogin } from '../../services/server-api/identity-hendle';
+import UserTypeSelect from './UserTypeSelect';
+import './Login.css'
 
 
 const emailRegexValidate = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -14,6 +15,7 @@ const emailRegexValidate = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [type, setType] = useState('')
     const [errors, setErrors] = useState({ email: undefined, password: undefined });
     const dispatch = useDispatch();
 
@@ -22,7 +24,7 @@ function Login() {
 
         if (!value || value === "")
             newErrors.password = 'Password is required';
-        else if (value.length < 6)
+        else if (value.length < 5)
             newErrors.password = 'Password must be at least 6 characters';
         else
             newErrors.password = undefined;
@@ -48,17 +50,21 @@ function Login() {
         event.preventDefault();
 
         try {
-            const userToken = await loginApi(email, password);
-            updateLocalStorage('tokenEmail', userToken.email);
-            updateLocalStorage('token', {userToken});
+            const userToken = await postLogin(email, password, type);
 
-            dispatch(setUserType('Admin'));
-            toast.success("The login was successful!");
-
+            if (userToken) {
+                updateLocalStorage('token', { userToken });
+                updateLocalStorage('tokenEmail', email);
+                dispatch(setUserType(type));
+                toast.success("The login was successful!");
+            }
+            else {
+                toast.error("Login failed. Please try again");
+            }
         } catch (error) {
             toast.failed("Login failed. Please try again");
-            updateLocalStorage('tokenEmail');
             updateLocalStorage('token');
+            updateLocalStorage('tokenEmail');
             dispatch(initUserType());
         }
     };
@@ -102,6 +108,7 @@ function Login() {
                         </Form.Control.Feedback>
                     </Form.Group>
 
+                    <UserTypeSelect value={type} onChange={value => setType(value)} />
 
                     <Button disabled={isSubmitDisabled()} variant="primary" type="submit" className="login-button">
                         Login
