@@ -28,7 +28,7 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      <ToastContainer   position="bottom-left"
+      <ToastContainer position="bottom-left"
       />
 
     </Provider>
