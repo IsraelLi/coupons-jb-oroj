@@ -1,30 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+ 
+  const mockCustomers = [
+    {
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+    }
+  ]
+
 const customersSlice = createSlice({
   name: 'customers-slice',
-  initialState: {
-    customers: [
-      {
-        id: '0',
-        firstName: 'Hadas',
-        lastName: 'Dasdas',
-        email: 'Hadas@Dasdas.com',
-      },
-      {
-        id: '1',
-        firstName: 'Josef',
-        lastName: 'Yoyo',
-        email: 'Josef@Yoyo.com',
-      },
-      {
-        id: '2',
-        firstName: 'Hila',
-        lastName: 'luli',
-        email: 'Hila@luli.com',
-      },
-    ],
-  },
+  initialState: mockCustomers,
   reducers: {
+    setCustomers: (state, action) => {
+      state.customers = action.payload;
+    },
     addCustomer: (state, action) => {
       state.customers.push(action.payload);
     },
@@ -34,5 +26,5 @@ const customersSlice = createSlice({
   },
 });
 
-export const { addCustomer: addCustomer, removeCustomer: removeCustomer } = customersSlice.actions;
+export const { setCustomers, addCustomer, removeCustomer } = customersSlice.actions;
 export default customersSlice.reducer;

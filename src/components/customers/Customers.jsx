@@ -1,19 +1,21 @@
-import React from "react"
-import { useSelector } from "react-redux";
+import React, { useState } from "react"
 import Customer from './Customer';
+import { useFetchCustomers } from '../../hooks/useFetchCustomers';
+import AddCustomerForm from './AddCustomerForm';
+import PluseButton from '../basic/PlusButton'
 
 
 export const Customers = () => {
-
-    const customers = useSelector(state => state.customers.customers);
+    const [addForm, setAddForm] = useState(false)
+    const customers = useFetchCustomers();
 
     return (
         <div className="coupons-container">
-            {customers.map((c, i) => {
-                return <Customer key={i} customer={c} />
+            {!addForm && customers?.map((c, i) => {
+                return c?.firstName != '' ? <Customer key={i} customer={c} /> : null
             })}
-            Customers displaying and actions.
-            The actions supposed to change according to the user type.
+            {!addForm && <PluseButton onClick={() => setAddForm(true)} />}
+            {addForm && <AddCustomerForm closeFormHandle={() => setAddForm(false)} />}
         </div>
     )
 }

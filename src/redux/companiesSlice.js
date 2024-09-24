@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const mockCompanies = {
-  companies: [
-    {
-      id: '',
-      name: '',
-      email: '',
-    }
-  ],
-}
+
+const mockCompanies = [
+  {
+    id: '',
+    name: '',
+    email: '',
+  }
+]
+
 
 const companiesSlice = createSlice({
   name: 'companies',

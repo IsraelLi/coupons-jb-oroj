@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../coupons/Coupon.css'
+import { deleteCustomerById } from '../../services/server-api/customers-handle'
+import { toast } from 'react-toastify';
 
-
-const Customer = ({customer}) => {
+const Customer = ({ customer }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -13,8 +14,14 @@ const Customer = ({customer}) => {
   const fullName = `${customer.firstName} ${customer.lastName}`
 
   function handleDelete() {
-    throw new Error('Function not implemented.');
+    deleteCustomerById(customer.id).then(res => {
+      toast.success(`Customer: ${customer.id} was deleted successfully!`);
+      handleClose();
+    }).catch(e => {
+      toast.failed(`Fail to delete customer id: ${customer.id}.`);
+    })
   }
+
   function handleDisplayCustomerCoupons() {
     throw new Error('Function not implemented.');
   }
@@ -45,7 +52,7 @@ const Customer = ({customer}) => {
             Show my coupons
           </Button>
         </Modal.Footer>
-        
+
       </Modal>
     </div>
   );
