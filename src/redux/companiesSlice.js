@@ -3,20 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const mockCompanies = {
   companies: [
     {
-      id: '0',
-      name: 'Amazon',
-      email: 'alexa@Amazonas.com',
-    },
-    {
-      id: '1',
-      name: 'Apple',
-      email: 'mac@donald.com',
-    },
-    {
-      id: '2',
-      name: 'Google',
-      email: 'hi@google.com',
-    },
+      id: '',
+      name: '',
+      email: '',
+    }
   ],
 }
 
