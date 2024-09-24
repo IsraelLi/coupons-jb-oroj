@@ -1,26 +1,20 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Coupon.css'
-import { deleteCompanyById } from '../services/server-api/company-handle'
-import { toast } from 'react-toastify';
+import '../coupons/Coupon.css'
 
 
-const Company = ({ company }) => {
+const Customer = ({customer}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  function handleDelete() {
-    deleteCompanyById(company.id).then(res => {
-      toast.success(`Company: ${company.id} was deleted successful!`);
-      handleClose();
-    }).catch(e => {
-      toast.failed(`Fail to delete company id: ${company.id}.`);
-    })
-  }
+  const fullName = `${customer.firstName} ${customer.lastName}`
 
+  function handleDelete() {
+    throw new Error('Function not implemented.');
+  }
   function handleDisplayCustomerCoupons() {
     throw new Error('Function not implemented.');
   }
@@ -28,18 +22,19 @@ const Company = ({ company }) => {
   return (
     <div className='card'>
       <Button variant="outline-primary" onClick={handleShow}>
-        {company.name}
+        {fullName}
       </Button>
 
       <Modal show={show} onHide={handleClose}>
 
         <Modal.Header closeButton>
-          <Modal.Title>{company.name}</Modal.Title>
+          <Modal.Title>{fullName}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <p><strong>name:</strong> {company?.name}</p>
-          <p><strong>email:</strong> {company?.email}</p>
+          <p><strong>first name:</strong> {customer?.firstName}</p>
+          <p><strong>last name:</strong> {customer?.lastName}</p>
+          <p><strong>email:</strong> {customer?.email}</p>
         </Modal.Body>
 
         <Modal.Footer>
@@ -50,10 +45,10 @@ const Company = ({ company }) => {
             Show my coupons
           </Button>
         </Modal.Footer>
-
+        
       </Modal>
     </div>
   );
 }
 
-export default Company;
+export default Customer;

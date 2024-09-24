@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import {postCompany} from '../services/server-api/company-handle'
+import { postCompany } from '../../services/server-api/company-handle'
+
+
+
 function AddCompanyForm(props) {
     const [formData, setFormData] = useState({
         name: '',
@@ -15,7 +18,7 @@ function AddCompanyForm(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         postCompany(formData);
-        props.onSubmit();
+        props.closeFormHandle();
     };
 
     const isSubmitDisabled = () => {
@@ -56,8 +59,11 @@ function AddCompanyForm(props) {
                     onChange={handleChange}
                 />
             </Form.Group>
-            <Button disabled={isSubmitDisabled()} variant="primary" type="submit">
+            <Button autoFocus={true} disabled={isSubmitDisabled()} variant="primary" type="submit">
                 Submit
+            </Button>
+            <Button variant="primary" type="button" onClick={()=>props.closeFormHandle()}>
+                Cancel
             </Button>
         </Form>
     );

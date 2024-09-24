@@ -4,9 +4,9 @@ import store from './redux/store';
 import { Provider } from 'react-redux';
 import './App.css'
 import NotFound from './components/errors/NotFoundPage'
-import { Companies } from './components/Companies';
-import { Coupons } from './components/Coupons';
-import { Customers } from './components/Customers';
+import { Companies } from './components/companies/Companies';
+import { Coupons } from './components/coupons/Coupons';
+import { Customers } from './components/customers/Customers';
 import Home from './components/Home';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
