@@ -16,5 +16,5 @@ const userTypeSlice = createSlice({
   },
 });
 
-export const { setUserType: setUserType, initUserType: initUserType } = userTypeSlice.actions;
+export const { setUserType, initUserType } = userTypeSlice.actions;
 export default userTypeSlice.reducer;

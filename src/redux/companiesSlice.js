@@ -1,28 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const mockCompanies = {
+  companies: [
+    {
+      id: '0',
+      name: 'Amazon',
+      email: 'alexa@Amazonas.com',
+    },
+    {
+      id: '1',
+      name: 'Apple',
+      email: 'mac@donald.com',
+    },
+    {
+      id: '2',
+      name: 'Google',
+      email: 'hi@google.com',
+    },
+  ],
+}
 
 const companiesSlice = createSlice({
-  name: 'companies-slice',
-  initialState: {
-    companies: [
-      {
-        id: '0',
-        name: 'Amazon',
-        email: 'alexa@Amazonas.com',
-      },
-      {
-        id: '1',
-        name: 'Apple',
-        email: 'mac@donald.com',
-      },
-      {
-        id: '2',
-        name: 'Google',
-        email: 'hi@google.com',
-      },
-    ],
-  },
+  name: 'companies',
+  initialState: mockCompanies,
   reducers: {
+    setCompanies: (state, action) => {
+      if (action?.payload != null)
+        state.companies = action.payload
+    },
     addCompany: (state, action) => {
       state.companies.push(action.payload);
     },
@@ -32,5 +37,5 @@ const companiesSlice = createSlice({
   },
 });
 
-export const { addCompany: addCompany, removeCompany: removeCompany } = companiesSlice.actions;
+export const { setCompanies, addCompany, removeCompany } = companiesSlice.actions;
 export default companiesSlice.reducer;

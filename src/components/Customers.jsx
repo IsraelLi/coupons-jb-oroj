@@ -12,7 +12,7 @@ export const Customers = () => {
             {customers.map((c, i) => {
                 return <Customer key={i} customer={c} />
             })}
-            Customers displaing and actions.
+            Customers displaying and actions.
             The actions supposed to change according to the user type.
         </div>
     )

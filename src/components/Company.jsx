@@ -2,16 +2,24 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Coupon.css'
+import { deleteCompanyById } from '../services/server-api/company-handle'
+import { toast } from 'react-toastify';
 
-const Company = ({company}) => {
+
+const Company = ({ company }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   function handleDelete() {
-    throw new Error('Function not implemented.');
+    deleteCompanyById(company.id).then(res => {
+      toast.success(`Company: ${company.id} was deleted successful!`);
+    }).catch(e => {
+      toast.failed(`Fail to delete company id: ${company.id}.`);
+    })
   }
+
   function handleDisplayCustomerCoupons() {
     throw new Error('Function not implemented.');
   }
@@ -41,7 +49,7 @@ const Company = ({company}) => {
             Show my coupons
           </Button>
         </Modal.Footer>
-        
+
       </Modal>
     </div>
   );
