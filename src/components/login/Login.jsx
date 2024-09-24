@@ -62,7 +62,7 @@ function Login() {
                 toast.error("Login failed. Please try again");
             }
         } catch (error) {
-            toast.failed("Login failed. Please try again");
+            toast.error("Login failed. Please try again");
             updateLocalStorage('token');
             updateLocalStorage('tokenEmail');
             dispatch(initUserType());

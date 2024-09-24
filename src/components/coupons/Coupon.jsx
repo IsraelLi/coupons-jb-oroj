@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Coupon.css'
-import { purchaseCoupons, deleteCoupons } from '../../services/server-api/coupons-handle'
+import { purchaseCoupons, deleteCoupon } from '../../services/server-api/coupons-handle'
 
 const Coupon = ({ coupon }) => {
   const [show, setShow] = useState(false);
@@ -11,7 +11,7 @@ const Coupon = ({ coupon }) => {
   const handleShow = () => setShow(true);
 
   function handleDelete() {
-    deleteCoupons(coupon.id);
+    deleteCoupon(coupon.id);
   }
 
   function handlePurchase() {

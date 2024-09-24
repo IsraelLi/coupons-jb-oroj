@@ -14,8 +14,8 @@ export const Companies = () => {
 
     return (
         <div className="coupons-container">
-            {!addForm && companies?.map((c, i) => {
-                return c?.name !='' ? <Company key={i} company={c} /> : null;
+            {!addForm && companies?.companies?.map((c, i) => {
+                return c?.name !=='' ? <Company key={i} company={c} /> : null;
             })}
             {!addForm && <PluseButton onClick={() => setAddForm(true)} />}
             {addForm && <AddCompanyForm closeFormHandle={() => setAddForm(false)} />}

@@ -18,18 +18,18 @@ export const purchaseCoupons = async (couponId) => {
         toast.success("Purchase coupon was successful!");
         return response.data;
     } catch (error) {
-        toast.failed("Fail to purchase coupon.");
+        toast.error("Fail to purchase coupon.");
         throw error;
     }
 };
 
-export const deleteCoupons = async (couponId) => {
+export const deleteCoupon = async (couponId) => {
     try {
-        const response = await axios.delete(`${URL}`, {});
+        const response = await axios.delete(`${URL}/${couponId}`, {});
         toast.success("Delete coupon was successful!");
         return response.data;
     } catch (error) {
-        toast.failed("Fail to delete coupon.");
+        toast.error("Fail to delete coupon.");
         throw error;
     }
 };

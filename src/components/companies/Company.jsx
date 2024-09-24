@@ -17,7 +17,7 @@ const Company = ({ company }) => {
       toast.success(`Company: ${company.id} was deleted successfully!`);
       handleClose();
     }).catch(e => {
-      toast.failed(`Fail to delete company id: ${company.id}.`);
+      toast.error(`Fail to delete company id: ${company.id}.`);
     })
   }
 

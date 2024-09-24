@@ -12,7 +12,7 @@ export const useFetchCustomers = () => {
     getAllCustomers().then(res => {
         dispatch(setCustomers(res));
     }).catch(e => {
-        toast.failed("Fail to get customers from the server.");
+        toast.error("Fail to get customers from the server.");
         console.error("Fail to get customers from the server.", e);
     });
 

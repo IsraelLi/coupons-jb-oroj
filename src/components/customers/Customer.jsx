@@ -18,7 +18,7 @@ const Customer = ({ customer }) => {
       toast.success(`Customer: ${customer.id} was deleted successfully!`);
       handleClose();
     }).catch(e => {
-      toast.failed(`Fail to delete customer id: ${customer.id}.`);
+      toast.error(`Fail to delete customer id: ${customer.id}.`);
     })
   }
 

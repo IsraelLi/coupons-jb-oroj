@@ -12,7 +12,7 @@ export const useFetchCompanies = () => {
     getCompanies().then(res => {
         dispatch(setCompanies(res));
     }).catch(e => {
-        toast.failed("Fail to get companies from the server.");
+        toast.error("Fail to get companies from the server.");
         console.error("Fail to get companies from the server.", e);
     });
 

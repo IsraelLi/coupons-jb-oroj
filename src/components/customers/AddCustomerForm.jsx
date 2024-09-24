@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { postCompany } from '../../services/server-api/company-handle'
+import { postCustomer } from '../../services/server-api/customers-handle'
 
 
 
 function AddCustomerForm(props) {
     const [formData, setFormData] = useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: ''
     });
@@ -17,23 +18,34 @@ function AddCustomerForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        postCompany(formData);
+        postCustomer(formData);
         props.closeFormHandle();
     };
 
     const isSubmitDisabled = () => {
-        return !(formData.name && formData.name !== '' && formData.email && formData.email !== '' && formData.password !== '');
+        return !(formData.firstName && formData.firstName !== '' && formData.lastName && formData.lastName !== '' && formData.email && formData.email !== '' && formData.password !== '');
     }
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formName">
-                <Form.Label>Name</Form.Label>
+            <Form.Group controlId="formFirstName">
+                <Form.Label>First Name</Form.Label>
                 <Form.Control
                     type="text"
-                    placeholder="Enter name"
-                    name="name"
-                    value={formData.name}
+                    placeholder="Enter first name"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                />
+            </Form.Group>
+
+            <Form.Group controlId="formLastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                    type="text"
+                    placeholder="Enter last name"
+                    name="lastName"
+                    value={formData.lastName}
                     onChange={handleChange}
                 />
             </Form.Group>
@@ -62,7 +74,7 @@ function AddCustomerForm(props) {
             <Button autoFocus={true} disabled={isSubmitDisabled()} variant="primary" type="submit">
                 Submit
             </Button>
-            <Button variant="primary" type="button" onClick={()=>props.closeFormHandle()}>
+            <Button variant="primary" type="button" onClick={() => props.closeFormHandle()}>
                 Cancel
             </Button>
         </Form>

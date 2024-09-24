@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
- 
-  const mockCustomers = [
+
+const init = {
+  customers: [
     {
       id: '',
       firstName: '',
@@ -9,13 +10,15 @@ import { createSlice } from '@reduxjs/toolkit';
       email: '',
     }
   ]
+}
 
 const customersSlice = createSlice({
   name: 'customers-slice',
-  initialState: mockCustomers,
+  initialState: init,
   reducers: {
     setCustomers: (state, action) => {
-      state.customers = action.payload;
+      if (action?.payload != null)
+        state.customers = action.payload;
     },
     addCustomer: (state, action) => {
       state.customers.push(action.payload);
