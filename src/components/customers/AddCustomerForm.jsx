@@ -12,7 +12,7 @@ function AddCustomerForm(props) {
         email: '',
         password: ''
     });
-    
+
     const dispatch = useDispatch();
 
 
@@ -29,8 +29,11 @@ function AddCustomerForm(props) {
         props.closeFormHandle();
     };
 
-    const isSubmitDisabled = () => {
-        return !(formData.firstName && formData.firstName !== '' && formData.lastName && formData.lastName !== '' && formData.email && formData.email !== '' && formData.password !== '');
+    const isValidData = () => {
+        return formData.firstName && formData.firstName !== ''
+            && formData.lastName && formData.lastName !== ''
+            && formData.email && formData.email !== ''
+            && formData.password !== '';
     }
 
     return (
@@ -78,7 +81,7 @@ function AddCustomerForm(props) {
                     onChange={handleChange}
                 />
             </Form.Group>
-            <Button autoFocus={true} disabled={isSubmitDisabled()} variant="primary" type="submit">
+            <Button autoFocus={true} disabled={!isValidData()} variant="primary" type="submit">
                 Submit
             </Button>
             <Button variant="primary" type="button" onClick={() => props.closeFormHandle()}>

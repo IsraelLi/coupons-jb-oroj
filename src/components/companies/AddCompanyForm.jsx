@@ -25,8 +25,8 @@ function AddCompanyForm(props) {
         props.closeFormHandle();
     };
 
-    const isSubmitDisabled = () => {
-        return !(formData.name && formData.name !== '' && formData.email && formData.email !== '' && formData.password !== '');
+    const isValidData = () => {
+        return (formData.name && formData.name !== '' && formData.email && formData.email !== '' && formData.password !== '');
     }
 
     return (
@@ -63,7 +63,7 @@ function AddCompanyForm(props) {
                     onChange={handleChange}
                 />
             </Form.Group>
-            <Button autoFocus={true} disabled={isSubmitDisabled()} variant="primary" type="submit">
+            <Button autoFocus={true} disabled={!isValidData()} variant="primary" type="submit">
                 Submit
             </Button>
             <Button variant="primary" type="button" onClick={() => props.closeFormHandle()}>

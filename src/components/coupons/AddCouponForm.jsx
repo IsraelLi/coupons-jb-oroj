@@ -31,8 +31,8 @@ function AddCouponForm(props) {
         props.closeFormHandle();
     };
 
-    const isSubmitDisabled = () => {
-        return !(formData.title && formData.title !== ''
+    const isValidData = () => {
+        return (formData.title && formData.title !== ''
             && formData.description && formData.description !== ''
             && formData.startDate && formData.startDate !== ''
             && formData.endDate && formData.endDate !== ''
@@ -123,7 +123,7 @@ function AddCouponForm(props) {
 
             <CategorySelect selectedValue={category} setSelectedValue={e => handleCategoryChange(e)} />
 
-            <Button autoFocus={true} disabled={isSubmitDisabled()} variant="primary" type="submit">
+            <Button autoFocus={true} disabled={!isValidData()} variant="primary" type="submit">
                 Submit
             </Button>
             <Button variant="primary" type="button" onClick={() => props.closeFormHandle()}>

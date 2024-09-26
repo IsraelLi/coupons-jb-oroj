@@ -18,8 +18,8 @@ export function AddCategoryForm(props) {
         props.closeFormHandle();
     }
 
-    const isSubmitDisabled = () => {
-        return !(name && name !== '')
+    const isValidData = () => {
+        return name && name !== ''
     }
 
     return (
@@ -35,7 +35,7 @@ export function AddCategoryForm(props) {
                 />
             </Form.Group>
 
-            <Button autoFocus={true} disabled={isSubmitDisabled()} variant="primary" type="submit">
+            <Button autoFocus={true} disabled={!isValidData()} variant="primary" type="submit">
                 Submit
             </Button>
             <Button variant="primary" type="button" onClick={() => props.closeFormHandle()}>
