@@ -2,13 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 const init = {
-  companies: [
-    {
-      id: '',
-      name: '',
-      email: '',
-    }
-  ]
+  companies: []
 }
 
 

@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 const URL = '/adminApi/coupons';
 
 export const getAllCoupons = async () => {
+    console.log('getAllCoupons');
+    
     try {
         const response = await axios.get(URL);
         return response.data;
@@ -13,12 +15,14 @@ export const getAllCoupons = async () => {
 };
 
 export const postCoupon = async (coupon) => {
+
+    console.table(coupon)
     try {
         const response = await axios.post(URL, couponPostBody(coupon));
         toast.success("New coupon was added successfully!");
         return response.data;
     } catch (error) {
-        toast.error("Fail to purchase coupon.");
+        toast.error("Fail to create a new coupon.");
         throw error;
     }
 };

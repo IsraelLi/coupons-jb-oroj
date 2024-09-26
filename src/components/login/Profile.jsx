@@ -10,7 +10,7 @@ const userNamePlaceHolder = 'please login:';
 function Profile() {
     const [userName, setUserName] = useState(userNamePlaceHolder);
     const [tokenEmail, setTokenEmail] = useState()
-    const userType = useSelector(state => state.user.user);
+    const userType = useSelector(state => state.userStore.user);
 
     useEffect(() => {
         setTokenEmail(localStorage.getItem('tokenEmail'))

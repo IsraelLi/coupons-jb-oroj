@@ -9,11 +9,11 @@ import categoriesReducer from './categoriesSlice';
 
 const store = configureStore({
   reducer: {
-    coupons: couponsReducer,
-    customers: customersReducer,
-    companies: companiesReducer,
-    categories: categoriesReducer,
-    user: userTypeReducer
+    couponsStore: couponsReducer,
+    customersStore: customersReducer,
+    companiesStore: companiesReducer,
+    categoriesStore: categoriesReducer,
+    userStore: userTypeReducer
   },
 });
 

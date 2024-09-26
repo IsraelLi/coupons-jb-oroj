@@ -16,8 +16,6 @@ function AddCouponForm(props) {
     const handleCategoryChange = (value) => {
         setFormData({ ...formData, ['categoryId']: value });
         setCategory(value)
-        console.table(formData);
-        
     }
 
     const handleSubmit = (e) => {
@@ -105,7 +103,7 @@ function AddCouponForm(props) {
                 />
             </Form.Group>
 
-            <CategorySelect selectedValue={category} setSelectedValue={e => handleCategoryChange(e)} />
+            <CategorySelect selectedValue={category} setSelectedValue={e => handleCategoryChange(e?.target?.value)} />
 
             <Button autoFocus={true} disabled={isSubmitDisabled()} variant="primary" type="submit">
                 Submit

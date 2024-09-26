@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 export const useFetchCustomers = () => {
     const dispatch = useDispatch();
-    const customers = useSelector(state => state.customers);
+    const customers = useSelector(state => state.customersStore);
 
     useEffect(() => {
         getAllCustomers().then(res => {
@@ -16,7 +16,7 @@ export const useFetchCustomers = () => {
             toast.error("Fail to get customers from the server.");
             console.error("Fail to get customers from the server.", e);
         });
-    }, [dispatch, customers])
+    }, [dispatch])
 
     return customers;
 }

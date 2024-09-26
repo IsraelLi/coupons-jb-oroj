@@ -9,6 +9,8 @@ const URL = '/adminApi/customers';
  * @returns all customers
  */
 export const getAllCustomers = async () => {
+    console.log('getAllCustomers');
+
     try {
         const response = await axios.get(URL, {
             headers: {

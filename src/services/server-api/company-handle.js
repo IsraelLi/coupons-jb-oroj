@@ -16,6 +16,8 @@ export const postCompany = async (company) => {
 };
 
 export const getCompanies = async () => {
+    console.log('getCompanies');
+    
     try {
         const response = await axios.get(`${URL}`);
         return response.data;

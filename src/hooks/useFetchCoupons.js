@@ -7,17 +7,16 @@ import { useEffect } from 'react';
 
 export const useFetchCoupons = () => {
     const dispatch = useDispatch();
-    const coupons = useSelector(state => state.coupons.coupons);
+    const coupons = useSelector(state => state.couponsStore);
 
     useEffect(() => {
         getAllCoupons().then(res => {
-            
             dispatch(setCoupons(res));
         }).catch(e => {
             toast.error("Fail to get coupons from the server.");
             console.error("Fail to get coupons from the server.", e);
         });
-    }, [dispatch, coupons])
+    }, [dispatch])
 
-    return coupons;
+    return coupons?.coupons;
 }

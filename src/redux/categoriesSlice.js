@@ -11,12 +11,7 @@ const categoriesSlice = createSlice({
   initialState: init,
   reducers: {
     setCategories: (state, action) => {
-
-      if (action?.payload != null)
-        action.payload.forEach(element => {
-          state.categories.find(c => c.id === element.id) === undefined
-            && state.categories.push(element);
-        });
+      state.categories = action.payload;
     },
     addCategory: (state, action) => {
       state.categories.push(action.payload);
