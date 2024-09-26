@@ -1,8 +1,7 @@
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getCompanies } from '../services/server-api/company-handle';
 import { setCompanies } from '../redux/companiesSlice'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
 
 export const useFetchCompanies = () => {

@@ -3,6 +3,8 @@ import couponsReducer from './couponsSlice';
 import customersReducer from './customersSlice';
 import companiesReducer from './companiesSlice';
 import userTypeReducer from './userTypeSlice';
+import categoriesReducer from './categoriesSlice';
+
 
 
 const store = configureStore({
@@ -10,6 +12,7 @@ const store = configureStore({
     coupons: couponsReducer,
     customers: customersReducer,
     companies: companiesReducer,
+    categories: categoriesReducer,
     user: userTypeReducer
   },
 });

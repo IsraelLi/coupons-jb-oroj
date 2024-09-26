@@ -1,19 +1,23 @@
-import React from "react"
-import { useSelector } from "react-redux";
+import React, { useState } from "react"
 import Coupon from './Coupon';
-import './Coupons.css'
+import './Coupons.css';
+import {useFetchCoupons} from '../../hooks/useFetchCoupons';
+import PluseButton from '../basic/PlusButton';
+import AddCouponForm from './AddCouponForm';
 
 
 export const Coupons = () => {
-    const coupons = useSelector(state => state.coupons.coupons);
+    const [addForm, setAddForm] = useState(false)       
+
+    const coupons = useFetchCoupons();
 
     return (
         <div className="coupons-container">
             {coupons.map((c, i) => {
                 return <Coupon key={i} coupon={c} />
             })}
-            Coupons displaing and actions.
-            The actions spposed to change according to the user type.
+            {!addForm && <PluseButton onClick={() => setAddForm(true)} />}
+            {addForm && <AddCouponForm closeFormHandle={() => setAddForm(false)} />}
         </div>
     )
 }

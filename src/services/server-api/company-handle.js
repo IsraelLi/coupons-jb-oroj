@@ -10,6 +10,7 @@ export const postCompany = async (company) => {
         toast.success(`New company: ${company.name} was added successful!`);
         return response.data;
     } catch (error) {
+        toast.error(`Fail to post company: ${company.name}.`);
         console.error(`Fail to post new company.`, error);
     }
 };

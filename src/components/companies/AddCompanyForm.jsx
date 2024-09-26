@@ -62,7 +62,7 @@ function AddCompanyForm(props) {
             <Button autoFocus={true} disabled={isSubmitDisabled()} variant="primary" type="submit">
                 Submit
             </Button>
-            <Button variant="primary" type="button" onClick={()=>props.closeFormHandle()}>
+            <Button variant="primary" type="button" onClick={() => props.closeFormHandle()}>
                 Cancel
             </Button>
         </Form>

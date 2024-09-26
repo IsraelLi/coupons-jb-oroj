@@ -1,13 +1,24 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const URL = '/coupons';
+const URL = '/adminApi/coupons';
 
 export const getAllCoupons = async () => {
     try {
-        const response = await axios.get(`${URL}`, {});
+        const response = await axios.get(URL);
         return response.data;
     } catch (error) {
+        throw error;
+    }
+};
+
+export const postCoupon = async (coupon) => {
+    try {
+        const response = await axios.post(URL, couponPostBody(coupon));
+        toast.success("New coupon was added successfully!");
+        return response.data;
+    } catch (error) {
+        toast.error("Fail to purchase coupon.");
         throw error;
     }
 };
@@ -33,3 +44,15 @@ export const deleteCoupon = async (couponId) => {
         throw error;
     }
 };
+
+function couponPostBody(coupon) {
+    return {
+        title: coupon.title,
+        description: coupon.description,
+        startDate: coupon.startDate,
+        endDate: coupon.endDate,
+        amount: coupon.amount,
+        price: coupon.price,
+        categoryId: coupon.categoryId
+    }
+}

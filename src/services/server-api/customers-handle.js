@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 const URL = '/adminApi/customers';
@@ -9,7 +10,12 @@ const URL = '/adminApi/customers';
  */
 export const getAllCustomers = async () => {
     try {
-        const response = await axios.get(`${URL}`);
+        const response = await axios.get(URL, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        });
         return response.data;
     } catch (error) {
         console.error(`Fail to get all customers.`, error);
@@ -29,9 +35,21 @@ export const getCustomersByCouponId = async (couponId) => {
 
 export const postCustomer = async (customer) => {
     try {
-        const response = await axios.post(`${URL}`, customerPostBody(customer));
+        const response = await axios.post(`${URL}`, customerPostBody(customer), {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        })
+
+        if (response.status >= 200 && response.status < 400)
+            toast.success(`New customer: ${customer.id} was added successful!`);
+        else
+            toast.error(`Fail to post new customer: ${customer.id}. with error status: ${response.status}`);
+
         return response.data;
     } catch (error) {
+        toast.success(`Fail to post new customer: ${customer.id}.`);
         console.error(`Fail to post new customer.`, error);
     }
 };
