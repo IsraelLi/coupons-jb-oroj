@@ -4,10 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import './Coupon.css'
 import { deleteCompanyById } from '../../services/server-api/company-handle'
 import { toast } from 'react-toastify';
-
+import { useDispatch } from 'react-redux';
+import { removeCompany } from '../../redux/companiesSlice'
 
 const Company = ({ company }) => {
   const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -15,6 +17,7 @@ const Company = ({ company }) => {
   function handleDelete() {
     deleteCompanyById(company.id).then(res => {
       toast.success(`Company: ${company.id} was deleted successfully!`);
+      dispatch(removeCompany(company.id))
       handleClose();
     }).catch(e => {
       toast.error(`Fail to delete company id: ${company.id}.`);

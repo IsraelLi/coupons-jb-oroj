@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { postCompany } from '../../services/server-api/company-handle'
-
+import { useDispatch } from 'react-redux';
+import { addCompany } from '../../redux/companiesSlice';
 
 
 function AddCompanyForm(props) {
@@ -10,6 +11,7 @@ function AddCompanyForm(props) {
         email: '',
         password: ''
     });
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,7 +19,9 @@ function AddCompanyForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        postCompany(formData);
+        postCompany(formData).then(res => {
+            dispatch(addCompany(res))
+        });
         props.closeFormHandle();
     };
 

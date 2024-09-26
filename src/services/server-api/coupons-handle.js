@@ -4,8 +4,6 @@ import { toast } from 'react-toastify';
 const URL = '/adminApi/coupons';
 
 export const getAllCoupons = async () => {
-    console.log('getAllCoupons');
-    
     try {
         const response = await axios.get(URL);
         return response.data;
@@ -15,8 +13,6 @@ export const getAllCoupons = async () => {
 };
 
 export const postCoupon = async (coupon) => {
-
-    console.table(coupon)
     try {
         const response = await axios.post(URL, couponPostBody(coupon));
         toast.success("New coupon was added successfully!");
@@ -40,8 +36,11 @@ export const purchaseCoupons = async (couponId) => {
 
 export const deleteCoupon = async (couponId) => {
     try {
-        const response = await axios.delete(`${URL}/${couponId}`, {});
-        toast.success("Delete coupon was successful!");
+        const response = await axios.delete(`${URL}/${couponId}`);
+
+        if (response.status >= 200 && response.status < 400)
+            toast.success("Delete coupon was successful!");
+
         return response.data;
     } catch (error) {
         toast.error("Fail to delete coupon.");
@@ -53,10 +52,12 @@ function couponPostBody(coupon) {
     return {
         title: coupon.title,
         description: coupon.description,
+        image: coupon.image,
         startDate: coupon.startDate,
         endDate: coupon.endDate,
         amount: coupon.amount,
         price: coupon.price,
-        categoryId: coupon.categoryId
+        categoryId: 13,
+        companyId: 10
     }
 }

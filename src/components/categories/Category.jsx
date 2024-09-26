@@ -3,16 +3,21 @@ import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../coupons/Coupon.css'
 import { deleteCategoryById } from '../../services/server-api/category-handle'
+import { useDispatch } from 'react-redux';
+import { removeCategory } from '../../redux/categoriesSlice'
+
 
 const Category = ({ category }) => {
   const [show, setShow] = useState(false);
-
+  const dispatch = useDispatch();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   function handleDelete() {
-    deleteCategoryById(category.id);
+    deleteCategoryById(category.id).then(res => {
+      dispatch(removeCategory(category.id))
+    })
   }
 
   function handleDisplayCustomerCoupons() {

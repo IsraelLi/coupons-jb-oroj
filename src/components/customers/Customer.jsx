@@ -4,9 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../coupons/Coupon.css'
 import { deleteCustomerById } from '../../services/server-api/customers-handle'
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { removeCustomer } from '../../redux/customersSlice';
+
 
 const Customer = ({ customer }) => {
   const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -15,11 +19,13 @@ const Customer = ({ customer }) => {
 
   function handleDelete() {
     deleteCustomerById(customer.id).then(res => {
+      dispatch(removeCustomer(customer.id))
       toast.success(`Customer: ${customer.id} was deleted successfully!`);
-      handleClose();
     }).catch(e => {
       toast.error(`Fail to delete customer id: ${customer.id}.`);
     })
+
+    handleClose();
   }
 
   function handleDisplayCustomerCoupons() {

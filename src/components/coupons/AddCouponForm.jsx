@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { postCoupon } from '../../services/server-api/coupons-handle'
 import { CategorySelect } from '../categories/CategorySelect';
+import { useDispatch } from 'react-redux';
+import { addCoupon } from '../../redux/couponsSlice'
 
 
 function AddCouponForm(props) {
     const [formData, setFormData] = useState({});
     const [category, setCategory] = useState('')
+    const dispatch = useDispatch();
 
 
     const handleChange = (e) => {
@@ -14,13 +17,17 @@ function AddCouponForm(props) {
     };
 
     const handleCategoryChange = (value) => {
+        console.log('value', value);
+
         setFormData({ ...formData, ['categoryId']: value });
         setCategory(value)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        postCoupon(formData);
+        postCoupon(formData).then(res => {
+            dispatch(addCoupon(res))
+        });
         props.closeFormHandle();
     };
 
@@ -55,6 +62,17 @@ function AddCouponForm(props) {
                     placeholder="Enter description"
                     name="description"
                     value={formData.description}
+                    onChange={handleChange}
+                />
+            </Form.Group>
+
+            <Form.Group controlId="formImage">
+                <Form.Label>Image</Form.Label>
+                <Form.Control
+                    type="text"
+                    placeholder="Enter image file name"
+                    name="image"
+                    value={formData.image}
                     onChange={handleChange}
                 />
             </Form.Group>
@@ -103,7 +121,7 @@ function AddCouponForm(props) {
                 />
             </Form.Group>
 
-            <CategorySelect selectedValue={category} setSelectedValue={e => handleCategoryChange(e?.target?.value)} />
+            <CategorySelect selectedValue={category} setSelectedValue={e => handleCategoryChange(e)} />
 
             <Button autoFocus={true} disabled={isSubmitDisabled()} variant="primary" type="submit">
                 Submit

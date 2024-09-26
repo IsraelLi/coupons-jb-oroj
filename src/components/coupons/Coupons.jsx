@@ -13,7 +13,7 @@ export const Coupons = () => {
 
     return (
         <div className="coupons-container">
-            {coupons.map((c, i) => {
+            {!addForm && coupons.map((c, i) => {
                 return <Coupon key={i} coupon={c} />
             })}
             {!addForm && <PluseButton onClick={() => setAddForm(true)} />}

@@ -9,6 +9,7 @@ export const useFetchCompanies = () => {
     const companies = useSelector(state => state.companiesStore);
 
     useEffect(() => {
+        console.debug('useFetchCompanies useeffect rendered');
 
         getCompanies().then(res => {
             dispatch(setCompanies(res));

@@ -10,6 +10,8 @@ export const useFetchCoupons = () => {
     const coupons = useSelector(state => state.couponsStore);
 
     useEffect(() => {
+        console.debug('useFetchCoupons useeffect rendered');
+        
         getAllCoupons().then(res => {
             dispatch(setCoupons(res));
         }).catch(e => {

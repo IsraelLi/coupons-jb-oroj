@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { postCategory } from '../../services/server-api/category-handle'
 import '../coupons/Coupon.css'
-
+import { useDispatch } from 'react-redux';
+import { addCategory } from '../../redux/categoriesSlice'
 
 export function AddCategoryForm(props) {
     const [name, setName] = useState('');
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        postCategory(name);
+        
+        postCategory(name).then(res => {
+            dispatch(addCategory(res))
+        });
         props.closeFormHandle();
     }
 

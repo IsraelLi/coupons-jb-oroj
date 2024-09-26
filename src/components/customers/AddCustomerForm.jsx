@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { postCustomer } from '../../services/server-api/customers-handle'
-
+import { useDispatch } from 'react-redux';
+import { addCustomer } from '../../redux/customersSlice'
 
 
 function AddCustomerForm(props) {
@@ -11,6 +12,9 @@ function AddCustomerForm(props) {
         email: '',
         password: ''
     });
+    
+    const dispatch = useDispatch();
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,7 +22,10 @@ function AddCustomerForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        postCustomer(formData);
+
+        postCustomer(formData).then(res => {
+            dispatch(addCustomer(res))
+        });
         props.closeFormHandle();
     };
 

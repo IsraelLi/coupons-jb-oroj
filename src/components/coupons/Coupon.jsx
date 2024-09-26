@@ -3,15 +3,20 @@ import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Coupon.css'
 import { purchaseCoupons, deleteCoupon } from '../../services/server-api/coupons-handle'
+import { useDispatch } from 'react-redux';
+import { removeCoupon } from '../../redux/couponsSlice'
 
 const Coupon = ({ coupon }) => {
   const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   function handleDelete() {
-    deleteCoupon(coupon.id);
+    deleteCoupon(coupon.id).then(res => {
+      dispatch(removeCoupon(coupon.id))
+    })
   }
 
   function handlePurchase() {
