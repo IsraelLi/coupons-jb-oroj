@@ -11,8 +11,6 @@ const Category = ({ category }) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   function handleDelete() {
     deleteCategoryById(category.id).then(res => {
@@ -26,11 +24,11 @@ const Category = ({ category }) => {
 
   return (
     <div className='card'>
-      <Button variant="outline-primary" onClick={handleShow}>
+      <Button variant="outline-primary" onClick={()=>setShow(true)}>
         {category?.name}
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={()=>setShow(false)}>
 
         <Modal.Header closeButton>
           <Modal.Title>{category?.name}</Modal.Title>

@@ -12,9 +12,6 @@ const Customer = ({ customer }) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const fullName = `${customer.firstName} ${customer.lastName}`
 
   function handleDelete() {
@@ -24,8 +21,6 @@ const Customer = ({ customer }) => {
     }).catch(e => {
       toast.error(`Fail to delete customer id: ${customer.id}.`);
     })
-
-    handleClose();
   }
 
   function handleDisplayCustomerCoupons() {
@@ -34,11 +29,11 @@ const Customer = ({ customer }) => {
 
   return (
     <div className='card'>
-      <Button variant="outline-primary" onClick={handleShow}>
+      <Button variant="outline-primary" onClick={() => setShow(true)}>
         {fullName}
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={() => setShow(false)}>
 
         <Modal.Header closeButton>
           <Modal.Title>{fullName}</Modal.Title>

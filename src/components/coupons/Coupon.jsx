@@ -11,9 +11,6 @@ const Coupon = ({ coupon }) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   function handleDelete() {
     deleteCoupon(coupon.id).then(res => {
       dispatch(removeCoupon(coupon.id))
@@ -31,11 +28,11 @@ const Coupon = ({ coupon }) => {
 
   return (
     <div className='card'>
-      <Button variant="outline-primary" onClick={handleShow}>
+      <Button variant="outline-primary" onClick={()=>setShow(true)}>
         {coupon.title}
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={()=>setShow(false)}>
 
         <Modal.Header closeButton>
           <Modal.Title>{coupon?.title}</Modal.Title>

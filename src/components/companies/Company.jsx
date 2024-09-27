@@ -11,14 +11,11 @@ const Company = ({ company }) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   function handleDelete() {
     deleteCompanyById(company.id).then(res => {
       toast.success(`Company: ${company.id} was deleted successfully!`);
       dispatch(removeCompany(company.id))
-      handleClose();
     }).catch(e => {
       toast.error(`Fail to delete company id: ${company.id}.`);
     })
@@ -30,11 +27,11 @@ const Company = ({ company }) => {
 
   return (
     <div className='card'>
-      <Button variant="outline-primary" onClick={handleShow}>
+      <Button variant="outline-primary" onClick={()=>setShow(true)}>
         {company.name}
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={()=>setShow(false)}>
 
         <Modal.Header closeButton>
           <Modal.Title>{company.name}</Modal.Title>
