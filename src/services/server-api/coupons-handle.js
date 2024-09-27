@@ -57,7 +57,7 @@ function couponPostBody(coupon) {
         endDate: coupon.endDate,
         amount: coupon.amount,
         price: coupon.price,
-        categoryId: 13,
-        companyId: 10
+        categoryId: coupon.categoryId,
+        companyId: coupon.companyId
     }
 }

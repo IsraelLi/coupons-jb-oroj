@@ -9,8 +9,6 @@ export const useFetchCompanies = () => {
     const companies = useSelector(state => state.companiesStore);
 
     useEffect(() => {
-        console.debug('useFetchCompanies useeffect rendered');
-
         getCompanies().then(res => {
             dispatch(setCompanies(res));
         }).catch(e => {
@@ -19,5 +17,5 @@ export const useFetchCompanies = () => {
         });
     }, [dispatch])
 
-    return companies;
+    return companies?.companies;
 }

@@ -10,8 +10,6 @@ export const useFetchCategories = () => {
     const categories = useSelector(state => state.categoriesStore);
 
     useEffect(() => {
-        console.debug('useFetchCategories useeffect rendered');
-
         getCategories().then(res => {
             dispatch(setCategories(res));
         }).catch(e => {

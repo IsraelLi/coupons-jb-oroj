@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { postCoupon } from '../../services/server-api/coupons-handle'
-import { CategorySelect } from '../categories/CategorySelect';
+import { ComboSelect } from '../basic/ComboSelect';
 import { useDispatch } from 'react-redux';
 import { addCoupon } from '../../redux/couponsSlice'
 
@@ -9,18 +9,22 @@ import { addCoupon } from '../../redux/couponsSlice'
 function AddCouponForm(props) {
     const [formData, setFormData] = useState({});
     const [category, setCategory] = useState('')
-    const dispatch = useDispatch();
+    const [company, setCompany] = useState('')
 
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target?.name]: e.target?.value });
     };
 
-    const handleCategoryChange = (value) => {
-        console.log('value', value);
+    const handleCategoryChange = (categoryName) => {
+        setFormData({ ...formData, ['categoryId']: props.categories.find(cat => cat.name == categoryName).id });
+        setCategory(categoryName)
+    }
 
-        setFormData({ ...formData, ['categoryId']: value });
-        setCategory(value)
+    const handleCompanyChange = (companyName) => {
+        setFormData({ ...formData, ['companyId']: props.companies.find(c => c.name == companyName).id });
+        setCompany(companyName)
     }
 
     const handleSubmit = (e) => {
@@ -32,14 +36,13 @@ function AddCouponForm(props) {
     };
 
     const isValidData = () => {
-        return (formData.title && formData.title !== ''
+        return formData.title && formData.title !== ''
             && formData.description && formData.description !== ''
             && formData.startDate && formData.startDate !== ''
             && formData.endDate && formData.endDate !== ''
             && formData.amount && formData.amount !== ''
             && formData.price && formData.price !== ''
             && formData.categoryId && formData.categoryId !== ''
-        );
     }
 
     return (
@@ -121,7 +124,8 @@ function AddCouponForm(props) {
                 />
             </Form.Group>
 
-            <CategorySelect selectedValue={category} setSelectedValue={e => handleCategoryChange(e)} />
+            <ComboSelect items={props.categories} selectedValue={category} setSelectedValue={e => handleCategoryChange(e)} />
+            <ComboSelect items={props.companies} selectedValue={company} setSelectedValue={e => handleCompanyChange(e)} />
 
             <Button autoFocus={true} disabled={!isValidData()} variant="primary" type="submit">
                 Submit

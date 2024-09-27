@@ -10,8 +10,6 @@ export const useFetchCustomers = () => {
     const customers = useSelector(state => state.customersStore);
 
     useEffect(() => {
-        console.debug('useFetchCustomers useeffect rendered');
-
         getAllCustomers().then(res => {
             dispatch(setCustomers(res));
         }).catch(e => {
