@@ -1,25 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 
-const init = {
-  coupons: [
-    {
-      id: '0',
-      companyId: '0',
-      title: "BlackFriday",
-      description: 'some desc.....',
-      startDate: new Date("2024-09-16T10:30:00Z").toISOString(),
-      endDate: new Date("2024-09-17T10:30:00Z").toISOString(),
-      amount: 10,
-      price: 99
-    }
-  ],
-};
-
-
 const couponsSlice = createSlice({
   name: 'coupons-slice',
-  initialState: init,
+  initialState: {
+    coupons: [],
+  },
   reducers: {
     setCoupons: (state, action) => {
       state.coupons = action.payload;

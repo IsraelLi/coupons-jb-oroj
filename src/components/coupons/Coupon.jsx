@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { removeCoupon } from '../../redux/couponsSlice'
 
 const Coupon = ({ coupon }) => {
+
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
@@ -46,7 +47,9 @@ const Coupon = ({ coupon }) => {
           <p><strong>end date:</strong> {dateFormat(coupon?.endDate)}</p>
           <p><strong>amount:</strong> {coupon?.amount}</p>
           <p><strong>price:</strong> {coupon?.price} ₪</p>
-          <p><strong>category:</strong> {coupon?.categoryId}</p>
+          <p><strong>category ID:</strong> {coupon?.categoryId}</p>
+          <p><strong>company ID:</strong> {coupon?.companyId}</p>
+
         </Modal.Body>
 
         <Modal.Footer>

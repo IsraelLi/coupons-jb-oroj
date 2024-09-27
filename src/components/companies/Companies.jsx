@@ -6,7 +6,6 @@ import AddCompanyForm from './AddCompanyForm';
 import '../coupons/Coupon.css'
 
 
-
 export const Companies = () => {
     const [addForm, setAddForm] = useState(false)
     const companies = useFetchCompanies();
@@ -14,7 +13,7 @@ export const Companies = () => {
 
     return (
         <div className="coupons-container">
-            {!addForm && companies?.companies?.map((c, i) => {
+            {!addForm && companies?.map((c, i) => {
                 return c?.name !=='' ? <Company key={i} company={c} /> : null;
             })}
             {!addForm && <PluseButton onClick={() => setAddForm(true)} />}
