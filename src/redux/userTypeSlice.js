@@ -1,20 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+// import { createSlice } from '@reduxjs/toolkit';
 
 
-const userTypeSlice = createSlice({
-  name: 'user',
-  initialState: {
-    userType: null
-  },
-  reducers: {
-    setUserType: (state, action) => {
-      state.userType = action.payload;
-    },
-    initUserType: (state) => {
-      state.userType = null;
-    },
-  },
-});
+// const userTypeSlice = createSlice({
+//   name: 'user-type',
+//   initialState: {
+//     userDetails: {}
+//   },
+//   reducers: {
+//     setUserType: (state, action) => {
+//       console.table(action.payload)
+//       state.userDetails = action.payload;
+//     },
+//     initUserType: (state) => {
+//       state = {};
+//     },
+//   },
+// });
 
-export const { setUserType, initUserType } = userTypeSlice.actions;
-export default userTypeSlice.reducer;
+// export const { setUserType, initUserType } = userTypeSlice.actions;
+// export default userTypeSlice.reducer;

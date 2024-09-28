@@ -6,10 +6,10 @@ import { Outlet } from 'react-router-dom';
 
 
 function Home() {
-    const [tokenEmail, setTokenEmail] = useState()
+    const [userEmail, setUserEmail] = useState()
 
     useEffect(() => {
-        setTokenEmail(localStorage.getItem('tokenEmail'))
+        setUserEmail(localStorage.getItem('userEmail'))
         window.addEventListener('localStorageChange', handleStorageChange);
 
         return () => {
@@ -18,13 +18,13 @@ function Home() {
     }, [])
 
     const handleStorageChange = () => {
-        setTokenEmail(localStorage.getItem('tokenEmail'))
+        setUserEmail(localStorage.getItem('userEmail'))
     }
 
     return (
         <div>
-            {tokenEmail ? <Profile /> : <Login />}
-            {tokenEmail && <Navigation />}
+            {userEmail ? <Profile /> : <Login />}
+            {userEmail && <Navigation />}
 
             
             <Outlet />

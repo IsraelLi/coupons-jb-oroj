@@ -21,17 +21,17 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}>
             <Route index path='/Coupons' element={<Coupons />} />
+            <Route index path='/Coupons/:id' element={<Coupons />} />
             <Route path="/Customers" element={<Customers />} />
             <Route path="/Companies" element={<Companies />} />
             <Route path="/Categories" element={<Categories />} />
-
           </Route>
 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
 
-      <ToastContainer position="bottom-left" pauseOnFocusLoss={false}/>
+      <ToastContainer position="bottom-left" pauseOnFocusLoss={false} />
 
     </Provider>
   );

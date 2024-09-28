@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import couponsReducer from './couponsSlice';
 import customersReducer from './customersSlice';
 import companiesReducer from './companiesSlice';
-import userTypeReducer from './userTypeSlice';
+// import userTypeReducer from './userTypeSlice';
 import categoriesReducer from './categoriesSlice';
 
 
@@ -13,7 +13,7 @@ const store = configureStore({
     customersStore: customersReducer,
     companiesStore: companiesReducer,
     categoriesStore: categoriesReducer,
-    userStore: userTypeReducer
+    // userStore: userTypeReducer
   },
 });
 

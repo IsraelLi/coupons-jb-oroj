@@ -10,7 +10,7 @@ const URL = '/auth/token';
  */
 export const postLogin = async (email, password, type) => {
     try {
-        const response = await axios.post(`${URL}`, getBody(email, password, type));
+        const response = await axios.post(URL, getBody(email, password, type));
 
         updateLocalStorage('token', response.data)
         return response.data;

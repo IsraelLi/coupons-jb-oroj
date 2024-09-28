@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { updateLocalStorage } from '../../services/updateLocalStorage';
-import { useDispatch } from 'react-redux';
-import { setUserType, initUserType } from '../../redux/userTypeSlice';
 import { toast } from 'react-toastify';
 import { postLogin } from '../../services/server-api/identity-hendle';
 import UserTypeSelect from './UserTypeSelect';
@@ -17,7 +15,6 @@ function Login() {
     const [password, setPassword] = useState('');
     const [type, setType] = useState('')
     const [errors, setErrors] = useState({ email: undefined, password: undefined });
-    const dispatch = useDispatch();
 
     const validatePassword = (value) => {
         const newErrors = errors;
@@ -54,8 +51,8 @@ function Login() {
 
             if (userToken) {
                 updateLocalStorage('token', { userToken });
-                updateLocalStorage('tokenEmail', email);
-                dispatch(setUserType(type));
+                updateLocalStorage('userEmail', email);
+                updateLocalStorage('userType', type);
                 toast.success("The login was successful!");
             }
             else {
@@ -64,8 +61,8 @@ function Login() {
         } catch (error) {
             toast.error("Login failed. Please try again");
             updateLocalStorage('token');
-            updateLocalStorage('tokenEmail');
-            dispatch(initUserType());
+            updateLocalStorage('userEmail');
+            updateLocalStorage('userType');
         }
     };
 

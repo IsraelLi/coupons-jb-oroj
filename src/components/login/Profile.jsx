@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Container, Button } from 'react-bootstrap';
 import './Profile.css';
 import { updateLocalStorage } from '../../services/updateLocalStorage';
-import { useSelector } from "react-redux";
 
 
 const userNamePlaceHolder = 'please login:';
 
 function Profile() {
     const [userName, setUserName] = useState(userNamePlaceHolder);
-    const [tokenEmail, setTokenEmail] = useState()
-    const userType = useSelector(state => state.userStore.user);
+    const [userEmail, setUserEmail] = useState()
+    const userType = localStorage.getItem('userType');
 
     useEffect(() => {
-        setTokenEmail(localStorage.getItem('tokenEmail'))
+        setUserEmail(localStorage.getItem('userEmail'))
         window.addEventListener('localStorageChange', handleStorageChange);
 
         return () => {
@@ -22,26 +21,27 @@ function Profile() {
     }, [])
 
     useEffect(() => {
-        let newValue = tokenEmail ? tokenEmail.split('@')[0] : userNamePlaceHolder;
+        let newValue = userEmail ? userEmail.split('@')[0] : userNamePlaceHolder;
 
         if (userType) newValue += `(${userType})`;
 
         setUserName(newValue)
-    }, [tokenEmail, userType])
+    }, [userEmail, userType])
 
     const handleStorageChange = () => {
-        setTokenEmail(localStorage.getItem('tokenEmail'))
+        setUserEmail(localStorage.getItem('userEmail'))
     }
 
     const handleLogout = () => {
-        updateLocalStorage('tokenEmail');
         updateLocalStorage('token');
+        updateLocalStorage('userEmail');
+        updateLocalStorage('userType');
     }
 
     return (
         <Container className='profile'>
             <p>Welcome, {userName}</p>
-            {tokenEmail &&
+            {userEmail &&
                 <Button
                     className='logout-btn'
                     variant="secondary"
