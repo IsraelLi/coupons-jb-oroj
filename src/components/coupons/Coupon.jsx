@@ -30,7 +30,7 @@ const Coupon = ({ coupon }) => {
     <div className='card'>
       <Button className='card-btn' variant="outline-primary" onClick={() => setShow(true)}>
         {coupon.title}
-        {<Card.Img src={`url(${coupon?.image})`} />}
+        {<Card.Img src={coupon?.image} />}
 
       </Button>
 
@@ -41,9 +41,9 @@ const Coupon = ({ coupon }) => {
         </Modal.Header>
 
 
-        <Card style={{ backgroundImage: `${coupon?.image}`, opacity: 0.5 }} className='bg-card' >
+        <Card>
           <Card.Body>
-            <Card.Img variant="top" src={'../../assets/images/coupon1.jpeg'}/>
+            <Card.Img variant="top" src={coupon?.image} />
 
             <Card.Text> {coupon?.description} </Card.Text>
             <Card.Text> <strong>start date:</strong> {dateFormat(coupon?.startDate)} </Card.Text>

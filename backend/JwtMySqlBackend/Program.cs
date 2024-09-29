@@ -1,6 +1,5 @@
 using JwtMySqlBackend.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -37,7 +36,6 @@ builder.Services.AddCors(options =>
 });
 
 
-
 builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddAuthorizationBuilder()
@@ -51,7 +49,6 @@ builder.Services.AddAuthorizationBuilder()
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -59,7 +56,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
