@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosTokenWrapper from './axiosTokenWrapper';
 import { toast } from 'react-toastify';
 
 
@@ -6,7 +6,7 @@ const URL = '/adminApi/categories';
 
 export const postCategory = async (categoryName) => {
     try {
-        const response = await axios.post(URL, categoryPostBody(categoryName));
+        const response = await axiosTokenWrapper.post(URL, categoryPostBody(categoryName));
 
         if (response.status >= 200 && response.status < 400)
             toast.success(`New category: ${categoryName} was added successful!`);
@@ -24,7 +24,7 @@ export const getCategories = async () => {
     console.log('getCategories');
 
     try {
-        const response = await axios.get(URL);
+        const response = await axiosTokenWrapper.get(URL);
         return response.data;
     } catch (error) {
         console.error(`Fail to get the categories from the server`, error);
@@ -33,7 +33,7 @@ export const getCategories = async () => {
 
 export const deleteCategoryById = async (id) => {
     try {
-        const response = await axios.delete(`${URL}/${id}`);
+        const response = await axiosTokenWrapper.delete(`${URL}/${id}`);
 
         if (response.status >= 200 && response.status < 400)
             toast.success(`Category: ${id} was deleted successfully!`);

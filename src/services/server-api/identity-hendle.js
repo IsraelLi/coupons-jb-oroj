@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosTokenWrapper from './axiosTokenWrapper';
 import { updateLocalStorage } from '../updateLocalStorage';
 
 
@@ -10,7 +10,7 @@ const URL = '/auth/token';
  */
 export const postLogin = async (email, password, type) => {
     try {
-        const response = await axios.post(URL, getBody(email, password, type));
+        const response = await axiosTokenWrapper.post(URL, getBody(email, password, type));
 
         updateLocalStorage('token', response.data)
         return response.data;

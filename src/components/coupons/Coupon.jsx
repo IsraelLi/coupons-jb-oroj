@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Coupon.css'
 import { purchaseCoupons, deleteCoupon } from '../../services/server-api/coupons-handle'
@@ -28,26 +28,32 @@ const Coupon = ({ coupon }) => {
 
   return (
     <div className='card'>
-      <Button variant="outline-primary" onClick={()=>setShow(true)}>
+      <Button className='card-btn' variant="outline-primary" onClick={() => setShow(true)}>
         {coupon.title}
+        {<Card.Img src={`url(${coupon?.image})`} />}
+
       </Button>
 
-      <Modal show={show} onHide={()=>setShow(false)}>
+      <Modal show={show} onHide={() => setShow(false)}>
 
         <Modal.Header closeButton>
           <Modal.Title>{coupon?.title}</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <p><strong>description:</strong> {coupon?.description}</p>
-          <p><strong>start date:</strong> {dateFormat(coupon?.startDate)}</p>
-          <p><strong>end date:</strong> {dateFormat(coupon?.endDate)}</p>
-          <p><strong>amount:</strong> {coupon?.amount}</p>
-          <p><strong>price:</strong> {coupon?.price} ₪</p>
-          <p><strong>category ID:</strong> {coupon?.categoryId}</p>
-          <p><strong>company ID:</strong> {coupon?.companyId}</p>
 
-        </Modal.Body>
+        <Card style={{ backgroundImage: `${coupon?.image}`, opacity: 0.5 }} className='bg-card' >
+          <Card.Body>
+            <Card.Img variant="top" src={'../../assets/images/coupon1.jpeg'}/>
+
+            <Card.Text> {coupon?.description} </Card.Text>
+            <Card.Text> <strong>start date:</strong> {dateFormat(coupon?.startDate)} </Card.Text>
+            <Card.Text><strong>end date:</strong> {dateFormat(coupon?.endDate)}</Card.Text>
+            <Card.Text><strong>amount:</strong> {coupon?.amount}</Card.Text>
+            <Card.Text><strong>price:</strong> {coupon?.price} ₪</Card.Text>
+            <Card.Text><strong>category ID:</strong> {coupon?.categoryId}</Card.Text>
+            <Card.Text><strong>company ID:</strong> {coupon?.companyId}</Card.Text>
+          </Card.Body>
+        </Card>
 
         <Modal.Footer>
           {true && <Button variant="secondary" onClick={handleDelete}>

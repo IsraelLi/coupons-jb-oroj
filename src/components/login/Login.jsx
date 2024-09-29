@@ -49,8 +49,10 @@ function Login() {
         try {
             const userToken = await postLogin(email, password, type);
 
+            console.log(userToken);
+            
             if (userToken) {
-                updateLocalStorage('token', { userToken });
+                updateLocalStorage('token', userToken);
                 updateLocalStorage('userEmail', email);
                 updateLocalStorage('userType', type);
                 toast.success("The login was successful!");

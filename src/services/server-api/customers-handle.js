@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosTokenWrapper from './axiosTokenWrapper';
 import { toast } from 'react-toastify';
 
 
@@ -12,7 +12,7 @@ export const getAllCustomers = async () => {
     console.log('getAllCustomers');
 
     try {
-        const response = await axios.get(URL, {
+        const response = await axiosTokenWrapper.get(URL, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export const getCustomersByCouponId = async (couponId) => {
     const val = localStorage.getItem('token')
 
     try {
-        const response = await axios.get(`${URL}/by${couponId}`, { val });
+        const response = await axiosTokenWrapper.get(`${URL}/by${couponId}`, { val });
         return response.data;
     } catch (error) {
         throw error;
@@ -37,7 +37,7 @@ export const getCustomersByCouponId = async (couponId) => {
 
 export const postCustomer = async (customer) => {
     try {
-        const response = await axios.post(`${URL}`, customerPostBody(customer), {
+        const response = await axiosTokenWrapper.post(`${URL}`, customerPostBody(customer), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ export const postCustomer = async (customer) => {
 
 export const deleteCustomerById = async (id) => {
     try {
-        const response = await axios.delete(`${URL}/${id}`);
+        const response = await axiosTokenWrapper.delete(`${URL}/${id}`);
         return response.data;
     } catch (error) {
         console.error(`Fail to delete customer id: ${id}.`, error);
