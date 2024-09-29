@@ -1,3 +1,4 @@
+using JwtMySqlBackend;
 using JwtMySqlBackend.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -46,6 +47,8 @@ builder.Services.AddAuthorizationBuilder()
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("CustomerPolicy", p => p.RequireClaim("type", "Customer"));
+
+builder.Services.AddHostedService<DeleteExpiredCouponsService>();
 
 var app = builder.Build();
 

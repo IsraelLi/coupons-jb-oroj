@@ -73,43 +73,45 @@ function Login() {
     }
 
     return (
-        <div className="login-form-container">
-            <h2 className="login-title">Login</h2>
-            <Form onSubmit={handleSubmit} className="login-form">
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="Enter email"
-                        value={email}
-                        onChange={(e) => { setEmail(e.target.value); validateEmail(e.target.value); }}
-                        isInvalid={!!errors.email}
-                    />
-                </Form.Group>
+        <div className="login-wrapper">
+            <div className="login-form-container">
+                <h2 className="login-title">Login</h2>
+                <Form onSubmit={handleSubmit} className="login-form">
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            value={email}
+                            onChange={(e) => { setEmail(e.target.value); validateEmail(e.target.value); }}
+                            isInvalid={!!errors.email}
+                        />
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Enter password"
-                        value={password}
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                            validatePassword(e.target.value);
-                        }}
-                        isInvalid={!!errors.password}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                        {errors.password}
-                    </Form.Control.Feedback>
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Enter password"
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                validatePassword(e.target.value);
+                            }}
+                            isInvalid={!!errors.password}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            {errors.password}
+                        </Form.Control.Feedback>
+                    </Form.Group>
 
-                <UserTypeSelect value={type} onChange={value => setType(value)} />
+                    <UserTypeSelect value={type} onChange={value => setType(value)} />
 
-                <Button disabled={isSubmitDisabled()} variant="primary" type="submit" className="login-button">
-                    Login
-                </Button>
-            </Form>
+                    <Button disabled={isSubmitDisabled()} variant="primary" type="submit" className="login-button">
+                        Login
+                    </Button>
+                </Form>
+            </div>
         </div>
     );
 }
