@@ -9,8 +9,6 @@ const URL = '/adminApi/customers';
  * @returns all customers
  */
 export const getAllCustomers = async () => {
-    console.log('getAllCustomers');
-
     try {
         const response = await axiosTokenWrapper.get(URL, {
             headers: {

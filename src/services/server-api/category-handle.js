@@ -21,8 +21,6 @@ export const postCategory = async (categoryName) => {
 };
 
 export const getCategories = async () => {
-    console.log('getCategories');
-
     try {
         const response = await axiosTokenWrapper.get(URL);
         return response.data;
