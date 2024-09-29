@@ -59,7 +59,7 @@ function AddCouponForm(props) {
             </Form.Group>
 
             <Form.Group controlId="formDescription">
-                <Form.Label>Last Name</Form.Label>
+                <Form.Label>Description</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Enter description"

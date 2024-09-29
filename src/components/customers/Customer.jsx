@@ -29,7 +29,7 @@ const Customer = ({ customer }) => {
 
   return (
     <div className='card'>
-      <Button variant="outline-primary" onClick={() => setShow(true)}>
+      <Button className='card-btn' variant="outline-primary" onClick={() => setShow(true)}>
         {fullName}
       </Button>
 

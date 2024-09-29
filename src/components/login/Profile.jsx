@@ -23,7 +23,7 @@ function Profile() {
     useEffect(() => {
         let newValue = userEmail ? userEmail.split('@')[0] : userNamePlaceHolder;
 
-        if (userType) newValue += `(${userType})`;
+        if (userType) newValue += ` (${userType})`;
 
         setUserName(newValue)
     }, [userEmail, userType])

@@ -4,3 +4,9 @@
     max-width: 100%;
     transition: transform 0.2s ease-in-out;
   }
+
+  .card-btn{
+    width: 100px;
+    height: 100px;
+
+  }
