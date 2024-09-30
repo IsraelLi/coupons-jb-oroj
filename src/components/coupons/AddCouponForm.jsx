@@ -10,20 +10,20 @@ function AddCouponForm(props) {
     const [formData, setFormData] = useState({});
     const [category, setCategory] = useState('')
     const [company, setCompany] = useState('')
-
     const dispatch = useDispatch();
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target?.name]: e.target?.value });
     };
 
     const handleCategoryChange = (categoryName) => {
-        setFormData({ ...formData, ['categoryId']: props.categories.find(cat => cat.name == categoryName).id });
+        setFormData({ ...formData, ['categoryId']: props.categories.find(cat => cat.name === categoryName).id });
         setCategory(categoryName)
     }
 
     const handleCompanyChange = (companyName) => {
-        setFormData({ ...formData, ['companyId']: props.companies.find(c => c.name == companyName).id });
+        setFormData({ ...formData, ['companyId']: props.companies.find(c => c.name === companyName).id });
         setCompany(companyName)
     }
 
@@ -42,7 +42,7 @@ function AddCouponForm(props) {
             && formData.endDate && formData.endDate !== ''
             && formData.amount && formData.amount !== ''
             && formData.price && formData.price !== ''
-            && formData.categoryId && formData.categoryId !== ''
+            && formData.categoryId && formData.companyId
     }
 
     return (
@@ -53,7 +53,7 @@ function AddCouponForm(props) {
                     type="text"
                     placeholder="Enter title"
                     name="title"
-                    value={formData.title}
+                    value={formData.title ?? ''}
                     onChange={handleChange}
                 />
             </Form.Group>
@@ -64,7 +64,7 @@ function AddCouponForm(props) {
                     type="text"
                     placeholder="Enter description"
                     name="description"
-                    value={formData.description}
+                    value={formData.description ?? ''}
                     onChange={handleChange}
                 />
             </Form.Group>
@@ -75,7 +75,7 @@ function AddCouponForm(props) {
                     type="text"
                     placeholder="Enter image file name"
                     name="image"
-                    value={formData.image}
+                    value={formData.image ?? ''}
                     onChange={handleChange}
                 />
             </Form.Group>
@@ -124,8 +124,8 @@ function AddCouponForm(props) {
                 />
             </Form.Group>
 
-            <ComboSelect items={props.categories} selectedValue={category} setSelectedValue={e => handleCategoryChange(e)} />
-            <ComboSelect items={props.companies} selectedValue={company} setSelectedValue={e => handleCompanyChange(e)} />
+            <ComboSelect header={'Category'} items={props.categories} selectedValue={category} setSelectedValue={e => handleCategoryChange(e)} />
+            <ComboSelect header={'Company'} items={props.companies} selectedValue={company} setSelectedValue={e => handleCompanyChange(e)} />
 
             <Button autoFocus={true} disabled={!isValidData()} variant="primary" type="submit">
                 Submit

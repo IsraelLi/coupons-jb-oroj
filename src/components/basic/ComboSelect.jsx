@@ -15,8 +15,9 @@ export const ComboSelect = (props) => {
 
     return (
         <Form.Group controlId="selection">
-            <Form.Label>Select one</Form.Label>
+            <Form.Label>{props.header}</Form.Label>
             <Form.Select value={props.selectedValue} onChange={handleChange}>
+                <option value="">Select One...</option>
                 {renderOptions()}
             </Form.Select>
         </Form.Group>

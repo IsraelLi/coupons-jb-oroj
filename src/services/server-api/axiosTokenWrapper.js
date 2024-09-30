@@ -26,18 +26,20 @@ axiosTokenWrapper.interceptors.request.use(
 
 
 axiosTokenWrapper.interceptors.response.use(
-  (response) => {
-    
-    if (response.status === 401) {
-      console.log('response: ', response);
-
+  (response) => response,
+  (error) => {
+    // handle 401 (Unauthorized)
+    if (error.response && error.response.status === 401) {
       console.error('Unauthorized - 401');
-      toast.error('Please log in again')
-      updateLocalStorage('token')
+      toast.error('Your token was expired, please log in again');
+      updateLocalStorage('token');
+      updateLocalStorage('userEmail');
+      updateLocalStorage('userType');
     }
-    else
-      return response;
-  })
+    return Promise.reject(error);
+  }
+);
+
 
 
 export default axiosTokenWrapper;
