@@ -4,4 +4,4 @@
 #### התקנת MySQL Data Base 
 #### הרצת הפקודות הבאות ב- .net CLI:
 dotnet tool install --global dotnet-ef\
-dotnet ef database update\
+dotnet ef database update
