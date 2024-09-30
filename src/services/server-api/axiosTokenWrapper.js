@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { updateLocalStorage } from '../updateLocalStorage';
 
 const axiosTokenWrapper = axios.create({
-  baseURL: 'http://localhost:5092'
+  baseURL: 'http://localhost:5000'
 });
 
 // Add a request interceptor to include the Bearer token
@@ -27,7 +27,10 @@ axiosTokenWrapper.interceptors.request.use(
 
 axiosTokenWrapper.interceptors.response.use(
   (response) => {
+    
     if (response.status === 401) {
+      console.log('response: ', response);
+
       console.error('Unauthorized - 401');
       toast.error('Please log in again')
       updateLocalStorage('token')

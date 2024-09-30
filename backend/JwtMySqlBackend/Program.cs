@@ -29,9 +29,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost3000",
+    options.AddPolicy("AllowAllOrigins",
         builder => builder
-            .WithOrigins("http://localhost:3000")
+            .AllowAnyOrigin()
+            //.WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -58,12 +59,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseCors("AllowAllOrigins");
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.UseCors("AllowLocalhost3000");
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
