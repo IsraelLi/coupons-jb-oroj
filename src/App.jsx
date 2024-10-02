@@ -31,7 +31,7 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      <ToastContainer position="bottom-left" pauseOnFocusLoss={false} />
+      <ToastContainer position="bottom-left" pauseOnFocusLoss={false} limit={1} />
 
     </Provider>
   );
