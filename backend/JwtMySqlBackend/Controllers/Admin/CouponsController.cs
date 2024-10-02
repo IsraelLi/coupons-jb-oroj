@@ -1,5 +1,4 @@
 ﻿using JwtMySqlBackend.Data;
-using JwtMySqlBackend.DTOs;
 using JwtMySqlBackend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
