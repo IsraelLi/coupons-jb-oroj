@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace JwtMySqlBackend.Controllers.Admin;
+namespace JwtMySqlBackend.Controllers.AdminApi;
 
 
 [Authorize(Policy = "AdminPolicy")]
 [Route("adminApi/customers")]
 [ApiController]
-public class CustomersController(AppDbContext appContext) : ControllerBase
+public class CustomerController(AppDbContext appContext) : ControllerBase
 {
 
     // GET: api/Customers

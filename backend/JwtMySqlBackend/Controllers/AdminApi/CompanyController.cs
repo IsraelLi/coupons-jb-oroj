@@ -3,7 +3,7 @@ using JwtMySqlBackend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JwtMySqlBackend.Controllers.Admin;
+namespace JwtMySqlBackend.Controllers.AdminApi;
 
 [Authorize(Policy = "AdminPolicy")]
 [ApiController]

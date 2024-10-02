@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { updateLocalStorage } from '../updateLocalStorage';
+import { updateLocalStorage } from './updateLocalStorage';
 
 const axiosTokenWrapper = axios.create({
   baseURL: 'http://localhost:5000'

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { updateLocalStorage } from '../../services/updateLocalStorage';
 import { toast } from 'react-toastify';
-import { postLogin } from '../../services/server-api/identity-hendle';
+import { postLogin } from '../../services/identity-hendle';
 import UserTypeSelect from './UserTypeSelect';
 import './Login.css'
 

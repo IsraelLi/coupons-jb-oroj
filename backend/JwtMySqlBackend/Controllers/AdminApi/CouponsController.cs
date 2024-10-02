@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace JwtMySqlBackend.Controllers.Admin;
+namespace JwtMySqlBackend.Controllers.AdminApi;
 
 
 [Authorize(Policy = "AdminPolicy")]
@@ -70,10 +70,5 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
         await appContext.SaveChangesAsync();
 
         return NoContent();
-    }
-
-    private bool CouponExists(int id)
-    {
-        return appContext.Coupons.Any(e => e.Id == id);
     }
 }

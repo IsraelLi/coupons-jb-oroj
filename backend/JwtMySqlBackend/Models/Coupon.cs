@@ -29,4 +29,6 @@ public class Coupon
     public int CompanyId { get; set; }
 
     public Company? Company { get; set; }
+
+    public List<int>? Purchases { get; set; }
 }

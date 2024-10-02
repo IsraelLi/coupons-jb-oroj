@@ -1,13 +1,10 @@
 import axiosTokenWrapper from './axiosTokenWrapper';
-import { updateLocalStorage } from '../updateLocalStorage';
+import { updateLocalStorage } from './updateLocalStorage';
 
 
 const URL = '/auth/token';
 
-/**
- * Enable for admin authorization only 
- * @returns 
- */
+
 export const postLogin = async (email, password, type) => {
     try {
         const response = await axiosTokenWrapper.post(URL, getBody(email, password, type));

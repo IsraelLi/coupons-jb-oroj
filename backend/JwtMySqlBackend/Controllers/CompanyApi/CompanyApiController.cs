@@ -7,82 +7,110 @@ using System.IdentityModel.Tokens.Jwt;
 namespace JwtMySqlBackend.Controllers.CompanyApi;
 
 [Authorize(Policy = "CompanyPolicy")]
-[Route("/companyApi")]
+[Route("/companyApi/companies")]
 [ApiController]
 public class CompanyApiController(AppDbContext appContext) : ControllerBase
 {
-
-    [HttpPost("/coupons")]
-    public async Task<ActionResult<Coupon>> CreateCoupon([FromBody] Coupon coupon)
+    // GET: companyApi/companies/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Company>> GetCompany(int id)
     {
-        JwtSecurityToken token = ExtractTokenFromRequest(Request)!;
-        string? email = token.Claims
-            .Where(v => v.Type == JwtRegisteredClaimNames.Email)
-            .Select(v => v.Value)
-            .FirstOrDefault();
+        var company = await appContext.Companies.FindAsync(id);
 
-        Company? company = appContext.Companies.Where(c => c.Id == coupon.CompanyId).FirstOrDefault();
         if (company == null)
-            return BadRequest("Invalid Company Id");
+        {
+            return NotFound();
+        }
 
-        if (email == null)
-            return BadRequest($"No Email Found in Token");
+        return company;
+    }
 
-        if (email != company.Email)
-            return Unauthorized($"You can't add coupon of another company");
+    [HttpPut]
+    public IActionResult Update(Company updatedData)
+    {
+        Company? company = appContext.Companies.Where(c => c.Id == updatedData.Id).FirstOrDefault();
 
-        Coupon? existing = appContext.Coupons
-            .FirstOrDefault(c => c.Title == coupon.Title && c.Id == coupon.CompanyId);
+        if (company is null)
+            return NotFound();
 
-        if (existing != null)
-            return BadRequest("Title already exists for this coupon");
-
-        appContext.Coupons.Add(coupon);
-        await appContext.SaveChangesAsync();
+        appContext.Entry(company).CurrentValues.SetValues(updatedData);
+        appContext.SaveChanges();
 
         return Ok();
     }
 
-    private JwtSecurityToken? ExtractTokenFromRequest(HttpRequest request)
-    {
 
-        // Check if Authorization header is present
-        if (request.Headers.ContainsKey("Authorization"))
-        {
-            var authHeader = request.Headers.Authorization.ToString();
+    //[HttpPost("/coupons")]
+    //public async Task<ActionResult<Coupon>> CreateCoupon([FromBody] Coupon coupon)
+    //{
+    //    JwtSecurityToken token = ExtractTokenFromRequest(Request)!;
+    //    string? email = token.Claims
+    //        .Where(v => v.Type == JwtRegisteredClaimNames.Email)
+    //        .Select(v => v.Value)
+    //        .FirstOrDefault();
 
-            // JWT token usually starts with 'Bearer ', so we need to remove that prefix
-            if (authHeader.StartsWith("Bearer "))
-            {
-                var token = authHeader["Bearer ".Length..].Trim();
-                return ParseToken(token);
-            }
-        }
-        return null;
-    }
+    //    Company? company = appContext.Companies.Where(c => c.Id == coupon.CompanyId).FirstOrDefault();
+    //    if (company == null)
+    //        return BadRequest("Invalid Company Id");
 
-    private JwtSecurityToken? ParseToken(string token)
-    {
-        try
-        {
-            // Initialize the JwtSecurityTokenHandler
-            var tokenHandler = new JwtSecurityTokenHandler();
+    //    if (email == null)
+    //        return BadRequest($"No Email Found in Token");
 
-            // Parse the JWT token from string
-            var jwtToken = tokenHandler.ReadJwtToken(token);
+    //    if (email != company.Email)
+    //        return Unauthorized($"You can't add coupon of another company");
 
-            // Get claims (e.g., "sub", "name", etc.)
-            var claims = jwtToken.Claims.Select(c => new { c.Type, c.Value }).ToList();
+    //    Coupon? existing = appContext.Coupons
+    //        .FirstOrDefault(c => c.Title == coupon.Title && c.Id == coupon.CompanyId);
 
-            // You can also access other token details like:
-            var issuer = jwtToken.Issuer;
-            var audience = jwtToken.Audiences;
+    //    if (existing != null)
+    //        return BadRequest("Title already exists for this coupon");
 
-            return jwtToken;
-        }
-        catch (Exception ex) 
-        {
-            return null;
-        }
-    }
+    //    appContext.Coupons.Add(coupon);
+    //    await appContext.SaveChangesAsync();
+
+    //    return Ok();
+    //}
+
+    //private JwtSecurityToken? ExtractTokenFromRequest(HttpRequest request)
+    //{
+
+    //    // Check if Authorization header is present
+    //    if (request.Headers.ContainsKey("Authorization"))
+    //    {
+    //        var authHeader = request.Headers.Authorization.ToString();
+
+    //        // JWT token arrived from the client starts with 'Bearer ', so we need to remove that prefix
+    //        if (authHeader.StartsWith("Bearer "))
+    //        {
+    //            var token = authHeader["Bearer ".Length..].Trim();
+    //            return ParseToken(token);
+    //        }
+    //    }
+    //    return null;
+    //}
+
+    //private JwtSecurityToken? ParseToken(string token)
+    //{
+    //    try
+    //    {
+    //        // Initialize the JwtSecurityTokenHandler
+    //        var tokenHandler = new JwtSecurityTokenHandler();
+
+    //        // Parse the JWT token from string
+    //        var jwtToken = tokenHandler.ReadJwtToken(token);
+
+    //        // Get claims (e.g., "sub", "name", etc.)
+    //        var claims = jwtToken.Claims.Select(c => new { c.Type, c.Value }).ToList();
+
+    //        // You can also access other token details like:
+    //        var issuer = jwtToken.Issuer;
+    //        var audience = jwtToken.Audiences;
+
+    //        return jwtToken;
+    //    }
+    //    catch (Exception ex) 
+    //    {
+    //        return null;
+    //    }
+    //}
 }

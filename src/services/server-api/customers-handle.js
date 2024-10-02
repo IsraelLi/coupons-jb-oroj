@@ -1,4 +1,4 @@
-import axiosTokenWrapper from './axiosTokenWrapper';
+import axiosTokenWrapper from '../axiosTokenWrapper';
 import { toast } from 'react-toastify';
 
 
