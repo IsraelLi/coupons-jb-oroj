@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import './Coupon.css'
+import { setFormItem } from '../../redux/updateFormItemSlice'
 import { deleteCompanyById } from '../../services/server-api/company-handle'
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { removeCompany } from '../../redux/companiesSlice'
 
+
 const Company = ({ company }) => {
-  const [show, setShow] = useState(false);
+  const [showCard, setShowCard] = useState(false);
   const dispatch = useDispatch();
 
 
@@ -21,17 +22,22 @@ const Company = ({ company }) => {
     })
   }
 
+  function handleEdit() {
+    dispatch(setFormItem(company))
+    setShowCard(false)
+  }
+
   function handleDisplayCustomerCoupons() {
     throw new Error('Function not implemented.');
   }
 
   return (
     <div className='card'>
-      <Button className='card-btn' variant="outline-primary" onClick={()=>setShow(true)}>
+      <Button className='card-btn' variant="outline-primary" onClick={() => setShowCard(true)}>
         {company.name}
       </Button>
 
-      <Modal show={show} onHide={()=>setShow(false)}>
+      <Modal show={showCard} onHide={() => setShowCard(false)}>
 
         <Modal.Header closeButton>
           <Modal.Title>{company.name}</Modal.Title>
@@ -43,6 +49,9 @@ const Company = ({ company }) => {
         </Modal.Body>
 
         <Modal.Footer>
+          <Button variant="secondary" onClick={handleEdit}>
+            Edit
+          </Button>
           <Button variant="secondary" onClick={handleDelete}>
             Delete
           </Button>

@@ -4,19 +4,23 @@ import '../coupons/Coupon.css'
 import PluseButton from '../basic/PlusButton'
 import { AddCategoryForm } from './AddCategoryForm'
 import { useFetchCategories } from '../../hooks/useFetchCategories'
+import { useSelector } from 'react-redux';
+import { UpdateCategoryForm } from "./UpdateCategoryForm";
 
 
 export const Categories = () => {
-    const [addForm, setAddForm] = useState(false);
+    const [showAddForm, setShowAddForm] = useState(false);
     const categories = useFetchCategories();
+    const updateFormItem = useSelector(state => state.formItemStore.formItem);
 
     return (
         <div className="coupons-container">
-            {!addForm && categories?.map((c, i) => {
+            {!showAddForm && !updateFormItem && categories?.map((c, i) => {
                 return c && c?.name !== '' ? <Category key={i} category={c} /> : null
             })}
-            {!addForm && <PluseButton onClick={() => setAddForm(true)} />}
-            {addForm && <AddCategoryForm closeFormHandle={() => setAddForm(false)} />}
+            {!showAddForm && <PluseButton onClick={() => setShowAddForm(true)} />}
+            {showAddForm && <AddCategoryForm closeFormHandle={() => setShowAddForm(false)} />}
+            {updateFormItem && <UpdateCategoryForm />}
         </div>
     )
 }

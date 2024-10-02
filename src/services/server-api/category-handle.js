@@ -20,6 +20,17 @@ export const postCategory = async (categoryName) => {
     }
 };
 
+export const updateCategory = async (category) => {
+    try {
+        const response = await axiosTokenWrapper.put(URL, categoryUpdateBody(category));
+        toast.success(`Category: ${category.name} was updated successfully!`);
+        return response.data;
+    } catch (error) {
+        toast.error(`Fail to update category: ${category.name}.`);
+        console.error(`Fail to put the category ${category.id}.`, error);
+    }
+};
+
 export const getCategories = async () => {
     try {
         const response = await axiosTokenWrapper.get(URL);
@@ -47,5 +58,13 @@ export const deleteCategoryById = async (id) => {
 function categoryPostBody(categoryName) {
     return {
         name: categoryName
+    }
+}
+
+
+function categoryUpdateBody(company) {
+    return {
+        id: company.id,
+        name: company.name
     }
 }

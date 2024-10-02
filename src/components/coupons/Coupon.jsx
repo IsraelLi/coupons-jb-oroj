@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Coupon.css'
+import { setFormItem } from '../../redux/updateFormItemSlice'
 import { purchaseCoupons, deleteCoupon } from '../../services/server-api/coupons-handle'
 import { useDispatch } from 'react-redux';
 import { removeCoupon } from '../../redux/couponsSlice'
@@ -15,6 +15,11 @@ const Coupon = ({ coupon }) => {
     deleteCoupon(coupon.id).then(res => {
       dispatch(removeCoupon(coupon.id))
     })
+  }
+
+  function handleEdit() {
+    dispatch(setFormItem(coupon))
+    setShow(false)
   }
 
   function handlePurchase() {
@@ -56,12 +61,15 @@ const Coupon = ({ coupon }) => {
         </Card>
 
         <Modal.Footer>
-          {true && <Button variant="secondary" onClick={handleDelete}>
+          <Button variant="secondary" onClick={handleEdit}>
+            Edit
+          </Button>
+          <Button variant="secondary" onClick={handleDelete}>
             Delete
-          </Button>}
-          {true && <Button variant="secondary" onClick={handlePurchase}>
+          </Button>
+          <Button variant="secondary" onClick={handlePurchase}>
             Purchase
-          </Button>}
+          </Button>
         </Modal.Footer>
 
       </Modal>

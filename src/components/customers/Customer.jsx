@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../coupons/Coupon.css'
+import { setFormItem } from '../../redux/updateFormItemSlice'
 import { deleteCustomerById } from '../../services/server-api/customers-handle'
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,11 @@ const Customer = ({ customer }) => {
   const dispatch = useDispatch();
 
   const fullName = `${customer.firstName} ${customer.lastName}`
+
+  function handleEdit() {
+    dispatch(setFormItem(customer))
+    setShow(false)
+  }
 
   function handleDelete() {
     deleteCustomerById(customer.id).then(res => {
@@ -46,6 +51,9 @@ const Customer = ({ customer }) => {
         </Modal.Body>
 
         <Modal.Footer>
+          <Button variant="secondary" onClick={handleEdit}>
+            Edit
+          </Button>
           <Button variant="secondary" onClick={handleDelete}>
             Delete
           </Button>

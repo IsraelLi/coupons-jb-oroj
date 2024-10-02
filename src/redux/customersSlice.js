@@ -17,10 +17,17 @@ const customersSlice = createSlice({
       state.customers.push(action.payload);
     },
     removeCustomer: (state, action) => {
-      state.customers = state.customers.filter(user => user.id !== action.payload);
+      state.customers = state.customers.filter(customer => customer.id !== action.payload);
     },
+    editCustomer: (state, action) => {
+      const index = state.customers.findIndex(customer => customer.id === action.payload.id);
+      
+      if (index !== -1) {
+        state.customers[index] = { ...state[index], ...action.payload };
+      }
+    }
   },
 });
 
-export const { setCustomers, addCustomer, removeCustomer } = customersSlice.actions;
+export const { setCustomers, addCustomer, removeCustomer, editCustomer } = customersSlice.actions;
 export default customersSlice.reducer;

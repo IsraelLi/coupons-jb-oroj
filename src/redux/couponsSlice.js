@@ -16,8 +16,15 @@ const couponsSlice = createSlice({
     removeCoupon: (state, action) => {
       state.coupons = state.coupons.filter(coupon => coupon.id !== action.payload);
     },
+    editCoupon: (state, action) => {
+      const index = state.coupons.findIndex(coupon => coupon.id === action.payload.id);
+
+      if (index !== -1) {
+        state.coupons[index] = { ...state[index], ...action.payload };
+      }
+    }
   },
 });
 
-export const { setCoupons, addCoupon, removeCoupon } = couponsSlice.actions;
+export const { setCoupons, addCoupon, removeCoupon, editCoupon } = couponsSlice.actions;
 export default couponsSlice.reducer;

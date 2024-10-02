@@ -15,6 +15,17 @@ export const postCompany = async (company) => {
     }
 };
 
+export const updateCompany = async (company) => {
+    try {
+        const response = await axiosTokenWrapper.put(URL, companyUpdateBody(company));
+        toast.success(`Company: ${company.name} was updated successfully!`);
+        return response.data;
+    } catch (error) {
+        toast.error(`Fail to update company: ${company.name}.`);
+        console.error(`Fail to put the company ${company.id}.`, error);
+    }
+};
+
 export const getCompanies = async () => {
     try {
         const response = await axiosTokenWrapper.get(`${URL}`);
@@ -35,6 +46,15 @@ export const deleteCompanyById = async (id) => {
 
 function companyPostBody(company) {
     return {
+        name: company.name,
+        email: company.email,
+        password: company.password
+    }
+}
+
+function companyUpdateBody(company) {
+    return {
+        id: company.id,
         name: company.name,
         email: company.email,
         password: company.password

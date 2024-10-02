@@ -34,34 +34,18 @@ public class CustomersController(AppDbContext appContext) : ControllerBase
         return customer;
     }
 
-    // PUT: api/Customers/5
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutCustomer(int id, Customer customer)
+    [HttpPut]
+    public IActionResult Update(Customer updatedData)
     {
-        if (id != customer.Id)
-        {
-            return BadRequest();
-        }
+        Customer? customer = appContext.Customers.Where(customer => customer.Id == updatedData.Id).FirstOrDefault();
 
-        appContext.Entry(customer).State = EntityState.Modified;
+        if (customer is null)
+            return NotFound();
 
-        try
-        {
-            await appContext.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!CustomerExists(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
+        appContext.Entry(customer).CurrentValues.SetValues(updatedData);
+        appContext.SaveChanges();
 
-        return NoContent();
+        return Ok();
     }
 
     // POST: api/Customers

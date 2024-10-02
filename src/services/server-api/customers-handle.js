@@ -54,6 +54,19 @@ export const postCustomer = async (customer) => {
     }
 };
 
+
+export const updateCustomer = async (customer) => {
+    try {
+        const response = await axiosTokenWrapper.put(URL, companyUpdateBody(customer));
+        toast.success(`Customer: ${customer.name} was updated successfully!`);
+        return response.data;
+    } catch (error) {
+        toast.error(`Fail to update customer: ${customer.name}.`);
+        console.error(`Fail to put the customer ${customer.id}.`, error);
+    }
+};
+
+
 export const deleteCustomerById = async (id) => {
     try {
         const response = await axiosTokenWrapper.delete(`${URL}/${id}`);
@@ -65,6 +78,16 @@ export const deleteCustomerById = async (id) => {
 
 function customerPostBody(customer) {
     return {
+        firstName: customer.firstName,
+        lastName: customer.lastName,
+        email: customer.email,
+        password: customer.password
+    }
+}
+
+function companyUpdateBody(customer) {
+    return {
+        id: customer.id,
         firstName: customer.firstName,
         lastName: customer.lastName,
         email: customer.email,

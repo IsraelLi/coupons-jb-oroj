@@ -23,6 +23,17 @@ export const postCoupon = async (coupon) => {
     }
 };
 
+export const updateCoupon = async (coupon) => {
+    try {
+        const response = await axiosTokenWrapper.put(URL_ADMIN, couponPutBody(coupon));
+        toast.success(`Coupon ${coupon.title} was updated successfully!`);
+        return response.data;
+    } catch (error) {
+        toast.error("Fail to create a new coupon.");
+        throw error;
+    }
+};
+
 export const purchaseCoupons = async (couponId) => {
     try {
         const response = await axiosTokenWrapper.put(`${URL_ADMIN}/${couponId}}`, {});
@@ -50,6 +61,21 @@ export const deleteCoupon = async (couponId) => {
 
 function couponPostBody(coupon) {
     return {
+        title: coupon.title,
+        description: coupon.description,
+        image: coupon.image,
+        startDate: coupon.startDate,
+        endDate: coupon.endDate,
+        amount: coupon.amount,
+        price: coupon.price,
+        categoryId: coupon.categoryId,
+        companyId: coupon.companyId
+    }
+}
+
+function couponPutBody(coupon) {
+    return {
+        id: coupon.id,
         title: coupon.title,
         description: coupon.description,
         image: coupon.image,

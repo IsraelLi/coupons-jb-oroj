@@ -4,7 +4,7 @@ import customersReducer from './customersSlice';
 import companiesReducer from './companiesSlice';
 // import userTypeReducer from './userTypeSlice';
 import categoriesReducer from './categoriesSlice';
-
+import formItemReducer from './updateFormItemSlice'
 
 
 const store = configureStore({
@@ -13,6 +13,7 @@ const store = configureStore({
     customersStore: customersReducer,
     companiesStore: companiesReducer,
     categoriesStore: categoriesReducer,
+    formItemStore: formItemReducer
     // userStore: userTypeReducer
   },
 });

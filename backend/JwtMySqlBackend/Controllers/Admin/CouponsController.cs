@@ -33,33 +33,19 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
         return coupon;
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutCoupon(int id, Coupon coupon)
+
+    [HttpPut]
+    public IActionResult Update(Coupon updatedData)
     {
-        if (id != coupon.Id)
-        {
-            return BadRequest();
-        }
+        Coupon? coupon = appContext.Coupons.Where(coupon => coupon.Id == updatedData.Id).FirstOrDefault();
 
-        appContext.Entry(coupon).State = EntityState.Modified;
+        if (coupon is null)
+            return NotFound();
 
-        try
-        {
-            await appContext.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!CouponExists(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
+        appContext.Entry(coupon).CurrentValues.SetValues(updatedData);
+        appContext.SaveChanges();
 
-        return NoContent();
+        return Ok();
     }
 
     [HttpPost]

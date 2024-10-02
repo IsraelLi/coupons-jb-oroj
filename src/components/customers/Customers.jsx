@@ -3,19 +3,22 @@ import Customer from './Customer';
 import { useFetchCustomers } from '../../hooks/useFetchCustomers';
 import AddCustomerForm from './AddCustomerForm';
 import PluseButton from '../basic/PlusButton'
-
+import { useSelector } from 'react-redux';
+import UpdateCustomerForm from "./UpdateCustomerForm";
 
 export const Customers = () => {
     const [addForm, setAddForm] = useState(false)
     const customers = useFetchCustomers();
+    const updateFormItem = useSelector(state => state.formItemStore.formItem);
 
     return (
         <div className="coupons-container">
-            {!addForm && customers?.customers?.map((c, i) => {
+            {!addForm && !updateFormItem && customers?.customers?.map((c, i) => {
                 return c && c?.firstName !== '' ? <Customer key={i} customer={c} /> : null
             })}
             {!addForm && <PluseButton onClick={() => setAddForm(true)} />}
             {addForm && <AddCustomerForm closeFormHandle={() => setAddForm(false)} />}
+            {updateFormItem && <UpdateCustomerForm />}
         </div>
     )
 }

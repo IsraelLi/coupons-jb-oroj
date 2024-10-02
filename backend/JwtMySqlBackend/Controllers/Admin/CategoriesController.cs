@@ -3,6 +3,7 @@ using JwtMySqlBackend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace JwtMySqlBackend.Controllers.Admin;
 
@@ -34,34 +35,18 @@ public class CategoriesController(AppDbContext appContext) : ControllerBase
         return category;
     }
 
-    // PUT: api/Categories/5
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutCategory(int id, Category category)
+    [HttpPut]
+    public IActionResult Update(Category updatedData)
     {
-        if (id != category.Id)
-        {
-            return BadRequest();
-        }
+        Category? category = appContext.Categories.Where(category => category.Id == updatedData.Id).FirstOrDefault();
 
-        appContext.Entry(category).State = EntityState.Modified;
+        if (category is null)
+            return NotFound();
 
-        try
-        {
-            await appContext.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!CategoryExists(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
+        appContext.Entry(category).CurrentValues.SetValues(updatedData);
+        appContext.SaveChanges();
 
-        return NoContent();
+        return Ok();
     }
 
     // POST: api/Categories
