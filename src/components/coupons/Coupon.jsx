@@ -67,7 +67,7 @@ const Coupon = ({ coupon }) => {
           <Button variant="secondary" onClick={handleDelete}>
             Delete
           </Button>
-          <Button variant="secondary" onClick={handlePurchase}>
+          <Button disabled={coupon.amount <= 0} variant="secondary" onClick={handlePurchase}>
             Purchase
           </Button>
         </Modal.Footer>

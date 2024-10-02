@@ -12,6 +12,12 @@ namespace JwtMySqlBackend.Controllers.CustomerApi;
 [ApiController]
 public class CouponsController(AppDbContext appContext) : ControllerBase
 {
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Coupon>>> GetCoupons()
+    {
+        return await appContext.Coupons.ToListAsync();
+    }
+
     /// <summary>
     /// Get *MY* coupons
     /// </summary>
@@ -19,7 +25,7 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Coupon>>> GetCoupons(int customerId)
     {
-        return appContext.Coupons.Where(coupon => coupon.Purchases.Contains(customerId)).ToList();
+        return appContext.Coupons.Where(c => c.Purchases.Contains(customerId)).ToList();
     }
 
     [HttpGet("{id}")]
@@ -50,6 +56,7 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
             return Conflict();
 
         coupon.Purchases.Add(customerId);
+        coupon.Amount--;
 
         appContext.Entry(coupon).CurrentValues.SetValues(coupon);
         appContext.SaveChanges();
