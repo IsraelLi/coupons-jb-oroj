@@ -17,12 +17,12 @@ function Navigation() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/">Coupons-Ltd.</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">Coupons-Ltd</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
 
-            {userType === 'Admin' &&
+            {(userType === 'Admin' || userType === 'Customer') &&
               <Nav.Link onClick={e => { setActiveTab('Coupons') }} active={activeTab === 'Coupons'} as={Link} to={`/Coupons`}>Coupons</Nav.Link>
             }
 
