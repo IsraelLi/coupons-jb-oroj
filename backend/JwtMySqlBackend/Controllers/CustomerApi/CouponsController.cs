@@ -22,29 +22,19 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
     /// Get *MY* coupons
     /// </summary>
     /// <returns> return only coupons the customer purchased </returns>
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Coupon>>> GetCoupons(int customerId)
+    [HttpGet("{customerEmail}")]
+    public async Task<ActionResult<IEnumerable<Coupon>>> GetCoupons(string customerEmail)
     {
-        return appContext.Coupons.Where(c => c.Purchases.Contains(customerId)).ToList();
+        Customer? customer = appContext.Customers.Where(customer => customer.Email == customerEmail).FirstOrDefault();
+        var allCoupons = await appContext.Coupons.ToListAsync();
+
+        return allCoupons.Where(c => c.Purchases != null && c.Purchases.Contains(customer.Id)).ToList();
     }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Coupon>> GetCoupon(int id)
-    {
-        var coupon = await appContext.Coupons.FindAsync(id);
-
-        if (coupon == null)
-        {
-            return NotFound();
-        }
-
-        return coupon;
-    }
-
 
     [HttpPut]
-    public IActionResult Buy(int customerId, int couponId)
+    public IActionResult Buy([FromQuery] string customerEmail, [FromQuery] int couponId)
     {
+        Customer? customer = appContext.Customers.Where(customer => customer.Email == customerEmail).FirstOrDefault();
         Coupon? coupon = appContext.Coupons.Where(coupon => coupon.Id == couponId).FirstOrDefault();
 
         if (coupon is null)
@@ -52,10 +42,10 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
 
         coupon.Purchases ??= new();
 
-        if (coupon.Purchases.Exists(id => id == couponId))
+        if (coupon.Purchases.Exists(id => id == customer.Id))
             return Conflict();
 
-        coupon.Purchases.Add(customerId);
+        coupon.Purchases.Add(customer.Id);
         coupon.Amount--;
 
         appContext.Entry(coupon).CurrentValues.SetValues(coupon);

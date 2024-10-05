@@ -13,6 +13,15 @@ export const getAllCoupons = async () => {
     }
 };
 
+export const getMyCoupons = async (userEmail) => {
+    try {
+        const response = await axiosTokenWrapper.get(`${getUrlByUserType(baseUrl)}/${userEmail}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const postCoupon = async (coupon) => {
 
     try {
@@ -36,10 +45,18 @@ export const updateCoupon = async (coupon) => {
     }
 };
 
-export const purchaseCoupons = async (couponId) => {
+export const purchaseCoupon = async (couponId) => {
+    const email = localStorage.getItem('userEmail');
+
     try {
-        const response = await axiosTokenWrapper.put(`${getUrlByUserType(baseUrl)}/${couponId}}`, {});
-        toast.success("Purchase coupon was successful!");
+        const response = await axiosTokenWrapper.put(getUrlByUserType(baseUrl), null, {
+            params: {
+                customerEmail: email,
+                couponId: couponId
+            }
+        });
+
+        toast.success(`Purchase coupon: ${couponId} was successful!`);
         return response.data;
     } catch (error) {
         toast.error("Fail to purchase coupon.");

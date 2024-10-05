@@ -27,7 +27,7 @@ function Navigation() {
             }
 
             {(userType === 'Company' || userType === 'Customer') &&
-              <Nav.Link onClick={e => { setActiveTab('Coupons') }} active={activeTab === 'Coupons'} as={Link} to={`/Coupons${companyOrCustomerRouteId}`}>My Coupons</Nav.Link>
+              <Nav.Link onClick={e => { setActiveTab('MyCoupons') }} active={activeTab === 'MyCoupons'} as={Link} to={`/MyCoupons`}>My Coupons</Nav.Link>
             }
 
             {userType === 'Admin' &&

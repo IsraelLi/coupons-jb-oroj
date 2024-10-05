@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { setFormItem } from '../../redux/updateFormItemSlice'
-import { purchaseCoupons, deleteCoupon } from '../../services/server-api/coupons-handle'
+import { purchaseCoupon, deleteCoupon } from '../../services/server-api/coupons-handle'
 import { useDispatch } from 'react-redux';
 import { removeCoupon } from '../../redux/couponsSlice'
 
@@ -24,7 +24,8 @@ const Coupon = ({ coupon }) => {
   }
 
   function handlePurchase() {
-    purchaseCoupons(coupon.id)
+    purchaseCoupon(coupon.id)
+    setShow(false)
   }
 
   function dateFormat(stringDate) {
