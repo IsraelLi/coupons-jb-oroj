@@ -3,7 +3,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function Navigation() {
-  const [activeTab, setActiveTab] = useState()
+  const [activeTab, setActiveTab] = useState('Coupons')
   const [companyOrCustomerRouteId, setCompanyOrCustomerRouteId] = useState('');
 
   const userEmail = localStorage.getItem('userEmail');

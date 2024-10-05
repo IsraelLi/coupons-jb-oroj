@@ -1,12 +1,13 @@
 import axiosTokenWrapper from '../axiosTokenWrapper';
 import { toast } from 'react-toastify';
+import { getUrlByUserType } from '../urlByUserType';
 
 
-const URL = '/adminApi/categories';
+const baseUrl = 'Api/categories';
 
 export const postCategory = async (categoryName) => {
     try {
-        const response = await axiosTokenWrapper.post(URL, categoryPostBody(categoryName));
+        const response = await axiosTokenWrapper.post(getUrlByUserType(baseUrl), categoryPostBody(categoryName));
 
         if (response.status >= 200 && response.status < 400)
             toast.success(`New category: ${categoryName} was added successful!`);
@@ -22,7 +23,7 @@ export const postCategory = async (categoryName) => {
 
 export const updateCategory = async (category) => {
     try {
-        const response = await axiosTokenWrapper.put(URL, categoryUpdateBody(category));
+        const response = await axiosTokenWrapper.put(getUrlByUserType(baseUrl), categoryUpdateBody(category));
         toast.success(`Category: ${category.name} was updated successfully!`);
         return response.data;
     } catch (error) {
@@ -33,7 +34,7 @@ export const updateCategory = async (category) => {
 
 export const getCategories = async () => {
     try {
-        const response = await axiosTokenWrapper.get(URL);
+        const response = await axiosTokenWrapper.get(getUrlByUserType(baseUrl));
         return response.data;
     } catch (error) {
         console.error(`Fail to get the categories from the server`, error);
@@ -42,7 +43,7 @@ export const getCategories = async () => {
 
 export const deleteCategoryById = async (id) => {
     try {
-        const response = await axiosTokenWrapper.delete(`${URL}/${id}`);
+        const response = await axiosTokenWrapper.delete(`${getUrlByUserType(baseUrl)}/${id}`);
 
         if (response.status >= 200 && response.status < 400)
             toast.success(`Category: ${id} was deleted successfully!`);

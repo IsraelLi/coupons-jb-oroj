@@ -10,6 +10,7 @@ const Coupon = ({ coupon }) => {
 
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+  const userType = localStorage.getItem('userType')
 
   function handleDelete() {
     deleteCoupon(coupon.id).then(res => {
@@ -61,12 +62,12 @@ const Coupon = ({ coupon }) => {
         </Card>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleEdit}>
+          {userType !== 'Customer' && <Button variant="secondary" onClick={handleEdit}>
             Edit
-          </Button>
-          <Button variant="secondary" onClick={handleDelete}>
+          </Button>}
+          {userType !== 'Customer' && <Button variant="secondary" onClick={handleDelete}>
             Delete
-          </Button>
+          </Button>}
           <Button disabled={coupon.amount <= 0} variant="secondary" onClick={handlePurchase}>
             Purchase
           </Button>

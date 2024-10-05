@@ -10,13 +10,14 @@ export const Customers = () => {
     const [addForm, setAddForm] = useState(false)
     const customers = useFetchCustomers();
     const updateFormItem = useSelector(state => state.formItemStore.formItem);
+    const userType = localStorage.getItem('userType');
 
     return (
         <div className="coupons-container">
             {!addForm && !updateFormItem && customers?.customers?.map((c, i) => {
                 return c && c?.firstName !== '' ? <Customer key={i} customer={c} /> : null
             })}
-            {!addForm && <PluseButton onClick={() => setAddForm(true)} />}
+            {userType === 'Admin' && !addForm && <PluseButton onClick={() => setAddForm(true)} />}
             {addForm && <AddCustomerForm closeFormHandle={() => setAddForm(false)} />}
             {updateFormItem && <UpdateCustomerForm />}
         </div>

@@ -1,12 +1,13 @@
 import axiosTokenWrapper from '../axiosTokenWrapper';
 import { toast } from 'react-toastify';
+import { getUrlByUserType } from '../urlByUserType';
 
 
-const URL = '/adminApi/companies';
+const baseUrl = 'Api/companies';
 
 export const postCompany = async (company) => {
     try {
-        const response = await axiosTokenWrapper.post(`${URL}`, companyPostBody(company));
+        const response = await axiosTokenWrapper.post(getUrlByUserType(baseUrl), companyPostBody(company));
         toast.success(`New company: ${company.name} was added successful!`);
         return response.data;
     } catch (error) {
@@ -17,7 +18,7 @@ export const postCompany = async (company) => {
 
 export const updateCompany = async (company) => {
     try {
-        const response = await axiosTokenWrapper.put(URL, companyUpdateBody(company));
+        const response = await axiosTokenWrapper.put(getUrlByUserType(baseUrl), companyUpdateBody(company));
         toast.success(`Company: ${company.name} was updated successfully!`);
         return response.data;
     } catch (error) {
@@ -28,7 +29,7 @@ export const updateCompany = async (company) => {
 
 export const getCompanies = async () => {
     try {
-        const response = await axiosTokenWrapper.get(`${URL}`);
+        const response = await axiosTokenWrapper.get(getUrlByUserType(baseUrl));
         return response.data;
     } catch (error) {
         console.error(`Fail to get the companies from the server`, error);
@@ -37,7 +38,7 @@ export const getCompanies = async () => {
 
 export const deleteCompanyById = async (id) => {
     try {
-        const response = await axiosTokenWrapper.delete(`${URL}/${id}`);
+        const response = await axiosTokenWrapper.delete(`${getUrlByUserType(baseUrl)}/${id}`);
         return response.data;
     } catch (error) {
         console.error(`Fail to delete company id: ${id}.`, error);

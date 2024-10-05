@@ -12,13 +12,14 @@ export const Categories = () => {
     const [showAddForm, setShowAddForm] = useState(false);
     const categories = useFetchCategories();
     const updateFormItem = useSelector(state => state.formItemStore.formItem);
+    const userType = localStorage.getItem('userType');
 
     return (
         <div className="coupons-container">
             {!showAddForm && !updateFormItem && categories?.map((c, i) => {
                 return c && c?.name !== '' ? <Category key={i} category={c} /> : null
             })}
-            {!showAddForm && <PluseButton onClick={() => setShowAddForm(true)} />}
+            {userType === 'Admin' && !showAddForm && <PluseButton onClick={() => setShowAddForm(true)} />}
             {showAddForm && <AddCategoryForm closeFormHandle={() => setShowAddForm(false)} />}
             {updateFormItem && <UpdateCategoryForm />}
         </div>

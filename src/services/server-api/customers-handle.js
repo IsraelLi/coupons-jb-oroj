@@ -1,8 +1,9 @@
 import axiosTokenWrapper from '../axiosTokenWrapper';
 import { toast } from 'react-toastify';
+import { getUrlByUserType } from '../urlByUserType';
 
 
-const URL = '/adminApi/customers';
+const baseUrl = 'Api/customers';
 
 /**
  * Enable for admin authorization only 
@@ -10,12 +11,7 @@ const URL = '/adminApi/customers';
  */
 export const getAllCustomers = async () => {
     try {
-        const response = await axiosTokenWrapper.get(URL, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-                'Content-Type': 'application/json'
-            }
-        });
+        const response = await axiosTokenWrapper.get(getUrlByUserType(baseUrl));
         return response.data;
     } catch (error) {
         console.error(`Fail to get all customers.`, error);
@@ -26,7 +22,7 @@ export const getCustomersByCouponId = async (couponId) => {
     const val = localStorage.getItem('token')
 
     try {
-        const response = await axiosTokenWrapper.get(`${URL}/by${couponId}`, { val });
+        const response = await axiosTokenWrapper.get(`${getUrlByUserType(baseUrl)}/by${couponId}`, { val });
         return response.data;
     } catch (error) {
         throw error;
@@ -35,7 +31,7 @@ export const getCustomersByCouponId = async (couponId) => {
 
 export const postCustomer = async (customer) => {
     try {
-        const response = await axiosTokenWrapper.post(`${URL}`, customerPostBody(customer), {
+        const response = await axiosTokenWrapper.post(getUrlByUserType(baseUrl), customerPostBody(customer), {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json'
@@ -57,7 +53,7 @@ export const postCustomer = async (customer) => {
 
 export const updateCustomer = async (customer) => {
     try {
-        const response = await axiosTokenWrapper.put(URL, companyUpdateBody(customer));
+        const response = await axiosTokenWrapper.put(getUrlByUserType(baseUrl), companyUpdateBody(customer));
         toast.success(`Customer: ${customer.name} was updated successfully!`);
         return response.data;
     } catch (error) {
@@ -69,7 +65,7 @@ export const updateCustomer = async (customer) => {
 
 export const deleteCustomerById = async (id) => {
     try {
-        const response = await axiosTokenWrapper.delete(`${URL}/${id}`);
+        const response = await axiosTokenWrapper.delete(`${getUrlByUserType(baseUrl)}/${id}`);
         return response.data;
     } catch (error) {
         console.error(`Fail to delete customer id: ${id}.`, error);

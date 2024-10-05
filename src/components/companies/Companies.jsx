@@ -12,13 +12,14 @@ export const Companies = () => {
     const [showAddForm, setShowAddForm] = useState(false)
     const companies = useFetchCompanies();
     const updateFormItem = useSelector(state => state.formItemStore.formItem);
+    const userType = localStorage.getItem('userType');
 
     return (
         <div className="coupons-container">
             {!showAddForm  && !updateFormItem && companies?.map((c, i) => {
                 return c && c?.name !== '' ? <Company key={i} company={c} /> : null;
             })}
-            {!showAddForm && <PluseButton onClick={() => setShowAddForm(true)} />}
+            {userType === 'Admin' && !showAddForm && <PluseButton onClick={() => setShowAddForm(true)} />}
             {showAddForm && <AddCompanyForm closeFormHandle={() => setShowAddForm(false)} />}
             {updateFormItem && <UpdateCompanyForm />}
         </div>
