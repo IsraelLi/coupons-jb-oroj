@@ -9,9 +9,12 @@ const myCouponsSlice = createSlice({
   reducers: {
     setMyCoupons: (state, action) => {
       state.coupons = action.payload;
+    },
+    removeMyCoupon: (state, action) => {
+      state.coupons = state.coupons.filter(coupon => coupon.id !== action.payload);
     }
   },
 });
 
-export const { setMyCoupons } = myCouponsSlice.actions;
+export const { setMyCoupons, removeMyCoupon } = myCouponsSlice.actions;
 export default myCouponsSlice.reducer;

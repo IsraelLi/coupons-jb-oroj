@@ -15,22 +15,13 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
     /// Get *MY* coupons
     /// </summary>
     /// <returns> return only coupons of the company</returns>
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Coupon>>> GetCoupons(int companyId)
+    [HttpGet("{companyEmail}")]
+    public async Task<ActionResult<IEnumerable<Coupon>>> GetCoupons(string companyEmail)
     {
-        return appContext.Coupons.Where(coupon => coupon.CompanyId == companyId).ToList();
+        Company? company = appContext.Companies.Where(company => company.Email == companyEmail).FirstOrDefault();
+
+        return appContext.Coupons.Where(coupon => coupon.CompanyId == company.Id).ToList();
     }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Coupon>> GetCoupon(int id)
-    {
-        var coupon = await appContext.Coupons.FindAsync(id);
-
-        if (coupon == null) return NotFound();
-
-        return coupon;
-    }
-
 
     [HttpPut]
     public IActionResult Update(Coupon updatedData)
@@ -41,10 +32,6 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
             return NotFound();
 
         var myCoupons = appContext.Coupons.Where(c => c.CompanyId == coupon.CompanyId).ToList();
-
-        // Avoid same coupon title
-        if (myCoupons is not null && myCoupons.FirstOrDefault(c => c.Title == updatedData.Title) != null)
-            return Conflict();
 
         appContext.Entry(coupon).CurrentValues.SetValues(updatedData);
         appContext.SaveChanges();

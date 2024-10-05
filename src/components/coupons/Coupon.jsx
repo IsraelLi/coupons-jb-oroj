@@ -5,16 +5,22 @@ import { setFormItem } from '../../redux/updateFormItemSlice'
 import { purchaseCoupon, deleteCoupon } from '../../services/server-api/coupons-handle'
 import { useDispatch } from 'react-redux';
 import { removeCoupon } from '../../redux/couponsSlice'
+import { removeMyCoupon } from '../../redux/myCouponsSlice'
+import { useLocation } from 'react-router-dom';
 
 const Coupon = ({ coupon }) => {
-
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const userType = localStorage.getItem('userType')
 
+  const location = useLocation().pathname;
+  const pathParts = location.split('/');
+  const routeSuffix = pathParts[pathParts.length - 1];
+
   function handleDelete() {
     deleteCoupon(coupon.id).then(res => {
       dispatch(removeCoupon(coupon.id))
+      dispatch(removeMyCoupon(coupon.id))
     })
   }
 
@@ -63,15 +69,18 @@ const Coupon = ({ coupon }) => {
         </Card>
 
         <Modal.Footer>
-          {userType !== 'Customer' && <Button variant="secondary" onClick={handleEdit}>
-            Edit
-          </Button>}
-          {userType !== 'Customer' && <Button variant="secondary" onClick={handleDelete}>
-            Delete
-          </Button>}
-          <Button disabled={coupon.amount <= 0} variant="secondary" onClick={handlePurchase}>
-            Purchase
-          </Button>
+          {userType !== 'Customer' &&
+            <Button variant="secondary" onClick={handleEdit}>
+              Edit
+            </Button>}
+          {userType !== 'Customer' &&
+            <Button variant="secondary" onClick={handleDelete}>
+              Delete
+            </Button>}
+          {userType === 'Customer' && routeSuffix !== 'MyCoupons' &&
+            <Button disabled={coupon.amount < 1} variant="secondary" onClick={handlePurchase}>
+              Purchase
+            </Button>}
         </Modal.Footer>
 
       </Modal>
