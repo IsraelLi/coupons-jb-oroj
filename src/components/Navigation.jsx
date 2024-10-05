@@ -1,18 +1,11 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function Navigation() {
   const [activeTab, setActiveTab] = useState('Coupons')
-  const [companyOrCustomerRouteId, setCompanyOrCustomerRouteId] = useState('');
-
-  const userEmail = localStorage.getItem('userEmail');
   const userType = localStorage.getItem('userType');
 
-  useEffect(() => {
-    const routeId = userType !== 'Admin' && userEmail ? `/${userEmail}` : '';
-    setCompanyOrCustomerRouteId(routeId)
-  }, [userEmail, userType])
 
   return (
     <Navbar bg="light" expand="lg">
