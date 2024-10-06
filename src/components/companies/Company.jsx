@@ -14,6 +14,7 @@ const Company = ({ company }) => {
 
 
   function handleDelete() {
+    setShowCard(false)
     deleteCompanyById(company.id).then(res => {
       toast.success(`Company: ${company.id} was deleted successfully!`);
       dispatch(removeCompany(company.id))

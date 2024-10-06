@@ -20,6 +20,19 @@ public class CategoriesController(AppDbContext appContext) : ControllerBase
         return await appContext.Categories.ToListAsync();
     }
 
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Category>> GetCategory(int id)
+    {
+        var category = await appContext.Categories.FindAsync(id);
+
+        if (category == null)
+        {
+            return NotFound();
+        }
+
+        return category;
+    }
+
     [HttpPut]
     public IActionResult Update(Category updatedData)
     {
@@ -34,7 +47,6 @@ public class CategoriesController(AppDbContext appContext) : ControllerBase
         return Ok();
     }
 
-    // POST: api/Categories
     [HttpPost]
     public async Task<ActionResult<Category>> PostCategory(Category category)
     {
@@ -56,6 +68,6 @@ public class CategoriesController(AppDbContext appContext) : ControllerBase
         appContext.Categories.Remove(category);
         await appContext.SaveChangesAsync();
 
-        return NoContent();
+        return Ok();
     }
 }

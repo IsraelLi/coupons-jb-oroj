@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { updateLocalStorage } from '../../services/updateLocalStorage';
 import { toast } from 'react-toastify';
 import { postLogin } from '../../services/identity-hendle';
 import UserTypeSelect from './UserTypeSelect';
 import './Login.css'
+import { useNavigate } from 'react-router-dom';
 
 
 const emailRegexValidate = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -15,6 +16,11 @@ function Login() {
     const [password, setPassword] = useState('');
     const [type, setType] = useState('')
     const [errors, setErrors] = useState({ email: undefined, password: undefined });
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        navigate('/', { replace: true });
+    }, [navigate])
 
     const validatePassword = (value) => {
         const newErrors = errors;
