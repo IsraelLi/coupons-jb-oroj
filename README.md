@@ -1,5 +1,5 @@
 ## הנחיות להרצת האפליקציה:
-### התקנת והגדרת ה- Data Base
+### Data Base
 #### התקנת MySQL Data Base 
 #### הרצת הפקודות הבאות ב- .net CLI:
 dotnet tool install --global dotnet-ef\
