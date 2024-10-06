@@ -12,6 +12,7 @@ import Home from './components/Home';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MyCoupons } from './components/coupons/MyCoupons';
+import { Purchases } from './components/companies/Purchases';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route index path='/Coupons' element={<Coupons />} />
             <Route index path='/MyCoupons' element={<MyCoupons />} />
+            <Route index path='/Purchases' element={<Purchases />} />
             <Route path="/Customers" element={<Customers />} />
             <Route path="/Companies" element={<Companies />} />
             <Route path="/Categories" element={<Categories />} />

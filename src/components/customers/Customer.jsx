@@ -11,8 +11,8 @@ import { removeCustomer } from '../../redux/customersSlice';
 const Customer = ({ customer }) => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-
   const fullName = `${customer.firstName} ${customer.lastName}`
+  const userType = localStorage.getItem('userType');
 
   function handleEdit() {
     dispatch(setFormItem(customer))
@@ -46,15 +46,15 @@ const Customer = ({ customer }) => {
           <p><strong>email:</strong> {customer?.email}</p>
         </Modal.Body>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleEdit}>
-            Edit
-          </Button>
-          <Button variant="secondary" onClick={handleDelete}>
-            Delete
-          </Button>
-        </Modal.Footer>
-
+        {userType === 'Admin' &&
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleEdit}>
+              Edit
+            </Button>
+            <Button variant="secondary" onClick={handleDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>}
       </Modal>
     </div>
   );

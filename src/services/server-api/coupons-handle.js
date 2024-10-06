@@ -45,6 +45,17 @@ export const updateCoupon = async (coupon) => {
     }
 };
 
+export const getPurchases = async (couponId) => {
+    try {
+        const response = await axiosTokenWrapper.get(`${getUrlByUserType(baseUrl)}/purchases/${couponId}`)
+        return response.data;
+    }
+    catch (error) {
+        toast.error(`Fail to get the purchases of coupon: [${couponId}].`);
+    }
+}
+
+
 export const purchaseCoupon = async (couponId) => {
     const email = localStorage.getItem('userEmail');
 
@@ -56,7 +67,6 @@ export const purchaseCoupon = async (couponId) => {
             }
         });
         toast.success(`Purchase coupon: ${couponId} was successful!`);
-        
     } catch (error) {
         if (error.status === 409)
             toast.error("Only one coupon can be purchased.");

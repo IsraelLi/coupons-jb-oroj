@@ -23,6 +23,10 @@ function Navigation() {
               <Nav.Link onClick={e => { setActiveTab('MyCoupons') }} active={activeTab === 'MyCoupons'} as={Link} to={`/MyCoupons`}>My Coupons</Nav.Link>
             }
 
+            {userType === 'Company' &&
+              <Nav.Link onClick={e => { setActiveTab('Purchases') }} active={activeTab === 'Purchases'} as={Link} to={`/Purchases`}>Purchases</Nav.Link>
+            }
+
             {userType === 'Admin' &&
               <Nav.Link onClick={e => { setActiveTab('Companies') }} active={activeTab === 'Companies'} as={Link} to="/Companies">Companies</Nav.Link>
             }

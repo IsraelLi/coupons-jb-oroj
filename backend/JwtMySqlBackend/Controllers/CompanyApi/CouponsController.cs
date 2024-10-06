@@ -70,4 +70,15 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Get purchases
+    /// </summary>
+    /// <returns> return purchases of the given coupon</returns>
+    [HttpGet("purchases/{couponId}")]
+    public async Task<ActionResult<IEnumerable<Customer>>> GetPurchases(int couponId)
+    {
+        Coupon? coupon = appContext.Coupons.Where(c => c.Id == couponId).FirstOrDefault();
+
+        return appContext.Customers.Where(customer => coupon.Purchases.Contains(customer.Id)).ToList();
+    }
 }
