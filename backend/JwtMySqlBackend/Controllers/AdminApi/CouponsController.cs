@@ -19,19 +19,6 @@ public class CouponsController(AppDbContext appContext) : ControllerBase
         return await appContext.Coupons.ToListAsync();
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Coupon>> GetCoupon(int id)
-    {
-        var coupon = await appContext.Coupons.FindAsync(id);
-
-        if (coupon == null)
-        {
-            return NotFound();
-        }
-
-        return coupon;
-    }
-
 
     [HttpPut]
     public IActionResult Update(Coupon updatedData)

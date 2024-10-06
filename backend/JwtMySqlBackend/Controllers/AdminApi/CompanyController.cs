@@ -18,16 +18,6 @@ public class CompanyController(AppDbContext appContext) : ControllerBase
         return Ok(compaines);
     }
 
-    [HttpGet("{Id}")]
-    public IActionResult GetById([FromRoute] int Id)
-    {
-        Company? company = appContext.Companies.Where(company => company.Id == Id).FirstOrDefault();
-        if (company is not null)
-            return Ok(company);
-
-        return NotFound();
-    }
-
     [HttpPut]
     public IActionResult Update(Company updatedData)
     {

@@ -13,25 +13,10 @@ namespace JwtMySqlBackend.Controllers.AdminApi;
 public class CustomerController(AppDbContext appContext) : ControllerBase
 {
 
-    // GET: api/Customers
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
     {
         return await appContext.Customers.ToListAsync();
-    }
-
-    // GET: api/Customers/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Customer>> GetCustomer(int id)
-    {
-        var customer = await appContext.Customers.FindAsync(id);
-
-        if (customer == null)
-        {
-            return NotFound();
-        }
-
-        return customer;
     }
 
     [HttpPut]
@@ -48,7 +33,6 @@ public class CustomerController(AppDbContext appContext) : ControllerBase
         return Ok();
     }
 
-    // POST: api/Customers
     [HttpPost]
     public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
     {
@@ -58,7 +42,6 @@ public class CustomerController(AppDbContext appContext) : ControllerBase
         return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
     }
 
-    // DELETE: api/Customers/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCustomer(int id)
     {
@@ -72,10 +55,5 @@ public class CustomerController(AppDbContext appContext) : ControllerBase
         await appContext.SaveChangesAsync();
 
         return NoContent();
-    }
-
-    private bool CustomerExists(int id)
-    {
-        return appContext.Customers.Any(e => e.Id == id);
     }
 }

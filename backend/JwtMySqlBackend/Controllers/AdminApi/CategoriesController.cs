@@ -3,7 +3,6 @@ using JwtMySqlBackend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace JwtMySqlBackend.Controllers.AdminApi;
 
@@ -19,20 +18,6 @@ public class CategoriesController(AppDbContext appContext) : ControllerBase
     public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
     {
         return await appContext.Categories.ToListAsync();
-    }
-
-    // GET: api/Categories/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Category>> GetCategory(int id)
-    {
-        var category = await appContext.Categories.FindAsync(id);
-
-        if (category == null)
-        {
-            return NotFound();
-        }
-
-        return category;
     }
 
     [HttpPut]
@@ -59,7 +44,6 @@ public class CategoriesController(AppDbContext appContext) : ControllerBase
         return CreatedAtAction("GetCategory", new { id = category.Id }, category);
     }
 
-    // DELETE: api/Categories/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCategory(int id)
     {
@@ -73,10 +57,5 @@ public class CategoriesController(AppDbContext appContext) : ControllerBase
         await appContext.SaveChangesAsync();
 
         return NoContent();
-    }
-
-    private bool CategoryExists(int id)
-    {
-        return appContext.Categories.Any(e => e.Id == id);
     }
 }
