@@ -28,10 +28,6 @@ const Company = ({ company }) => {
     setShowCard(false)
   }
 
-  function handleDisplayCustomerCoupons() {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <div className='card'>
       <Button className='card-btn' variant="outline-primary" onClick={() => setShowCard(true)}>
@@ -56,9 +52,7 @@ const Company = ({ company }) => {
           <Button variant="secondary" onClick={handleDelete}>
             Delete
           </Button>
-          <Button variant="secondary" onClick={handleDisplayCustomerCoupons}>
-            Show my coupons
-          </Button>
+
         </Modal.Footer>
 
       </Modal>
