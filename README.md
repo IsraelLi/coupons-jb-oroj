@@ -1,11 +1,13 @@
-## הנחיות להרצת האפליקציה:
+## Instructions for Running the Application:
 ### Data Base
-#### התקנת MySQL Data Base 
-#### הרצת הפקודות הבאות ב- .net CLI:
-dotnet tool install --global dotnet-ef\
+#### Install MySQL Data Base
+#### Run the following commands using the .NET CLI:
+bash
+Copy code
+dotnet tool install --global dotnet-ef # (if not already installed)\
 dotnet ef database update
+### Running the Server-Side
+#### Run the process coupons-jb-oroj\backend\JwtMySqlBackend\bin\Release\net8.0\JwtMySqlBackend.exe from the project directory.
 
-### הרצת צד השרת
-הרצת התהליך "coupons-jb-oroj\backend\JwtMySqlBackend\bin\Release\net8.0\JwtMySqlBackend.exe" מתוך תיקיית הפרויקט.
-### הרצת צד הלקוח
-פניה מדפדפן לכתובת והפורט שבהם מאזין השרת - כפי שמופיע בחלון ה- console.
+### Running the Client-Side
+#### Open a browser and navigate to the address and port where the server is listening, as displayed in the console window.
