@@ -25,7 +25,6 @@ function Home() {
         <div>
             {userEmail ? <Profile /> : <Login />}
             {userEmail && <Navigation />}
-
             
             <Outlet />
         </div>
