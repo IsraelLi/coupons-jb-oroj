@@ -17,6 +17,10 @@ export const MyCoupons = () => {
     const updateFormItem = useSelector(state => state.formItemStore.formItem);
     const userType = localStorage.getItem('userType')
 
+    const getCompanyName = () => {
+        // return the company name or undefined if it's not a company
+        return userType === 'Company' ? localStorage.getItem('userEmail').split('@')[0] : undefined
+    }
 
     return (
         <div className="coupons-container">
@@ -24,7 +28,7 @@ export const MyCoupons = () => {
                 return c && c?.title !== '' ? <Coupon key={i} coupon={c} /> : null
             })}
             {userType !== 'Customer' && !addForm && <PluseButton onClick={() => setAddForm(true)} />}
-            {addForm && <AddCouponForm closeFormHandle={() => setAddForm(false)} companies={companies} categories={categories} />}
+            {addForm && <AddCouponForm company={getCompanyName()} closeFormHandle={() => setAddForm(false)} companies={companies} categories={categories} />}
             {updateFormItem && <UpdateCouponForm />}
 
         </div>

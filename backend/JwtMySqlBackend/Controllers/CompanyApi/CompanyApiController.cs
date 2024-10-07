@@ -11,7 +11,13 @@ namespace JwtMySqlBackend.Controllers.CompanyApi;
 [ApiController]
 public class CompanyApiController(AppDbContext appContext) : ControllerBase
 {
-    // GET: companyApi/companies/5
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        List<Company> compaines = [.. appContext.Companies];
+        return Ok(compaines);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<Company>> GetCompany(int id)
     {

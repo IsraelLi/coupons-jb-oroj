@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { postCoupon } from '../../services/server-api/coupons-handle'
 import { ComboSelect } from '../basic/ComboSelect';
 import { useDispatch } from 'react-redux';
 import { addCoupon } from '../../redux/couponsSlice'
+import { addMyCoupon } from '../../redux/myCouponsSlice';
 
 
 function AddCouponForm(props) {
@@ -12,6 +13,10 @@ function AddCouponForm(props) {
     const [company, setCompany] = useState('')
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (props.company)
+            handleCompanyChange(props.company);
+    }, [props.company])
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target?.name]: e.target?.value });
@@ -30,7 +35,9 @@ function AddCouponForm(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         postCoupon(formData).then(res => {
-            dispatch(addCoupon(res))
+            props.company
+                ? dispatch(addMyCoupon(res))
+                : dispatch(addCoupon(res))
         });
         props.closeFormHandle();
     };
@@ -125,7 +132,9 @@ function AddCouponForm(props) {
             </Form.Group>
 
             <ComboSelect header={'Category'} items={props.categories} selectedValue={category} setSelectedValue={e => handleCategoryChange(e)} />
-            <ComboSelect header={'Company'} items={props.companies} selectedValue={company} setSelectedValue={e => handleCompanyChange(e)} />
+            {props.company === undefined &&
+                <ComboSelect header={'Company'} items={props.companies} selectedValue={company} setSelectedValue={e => handleCompanyChange(e)}
+                />}
 
             <Button autoFocus={true} disabled={!isValidData()} variant="primary" type="submit">
                 Submit
